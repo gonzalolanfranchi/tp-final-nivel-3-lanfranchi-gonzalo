@@ -1,0 +1,6 @@
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\bin\Debug\domain.dll
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\bin\Debug\domain.pdb
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.csproj.AssemblyReference.cache
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.csproj.CoreCompileInputs.cache
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.dll
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.pdb

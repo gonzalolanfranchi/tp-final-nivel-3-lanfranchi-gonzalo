@@ -1,0 +1,9 @@
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\bin\Debug\service.dll
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\bin\Debug\service.pdb
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\bin\Debug\domain.dll
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\bin\Debug\domain.pdb
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.csproj.AssemblyReference.cache
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.csproj.CoreCompileInputs.cache
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.csproj.CopyComplete
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.dll
+C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.pdb
