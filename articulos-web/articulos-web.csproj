@@ -73,6 +73,7 @@
     <Content Include="Global.asax" />
     <Content Include="ListaArticulos.aspx" />
     <Content Include="Models\styles.css" />
+    <Content Include="scr.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

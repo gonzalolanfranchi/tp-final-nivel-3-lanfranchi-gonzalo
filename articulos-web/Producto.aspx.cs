@@ -15,26 +15,17 @@ namespace articulos_web
         public List<Producto> ListaProducto { get; set; }
         public List<Marca> ListaMarcas { get; set; }
         public List<Categoria> ListaCategorias { get; set; }
-
-        public string Textareadisoren = "";
         public bool modificar = false;
-
         
-
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
-
+        {          
             if (!IsPostBack)
             {
                 //Me guardo la pagina previa
                 if (Request.UrlReferrer != null)
                 {
                     ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
-
                 }
-
-
 
                 // Cargar los Drop Down List
                 MarcaService marcaService = new MarcaService();
@@ -70,8 +61,7 @@ namespace articulos_web
 
                 lblTitulo.Text = "Detalle del Producto";
                 txtId.Text = prod.Id.ToString();
-                txtId.Enabled = false;
-                txtNombre.Text = prod.Nombre.ToString();
+                txtNombre.Text = prod.Nombre;
                 txtNombre.Enabled= false;
                 txtImagenUrl.Text = prod.ImagenUrl.ToString();
                 txtImagenUrl.Enabled= false;
@@ -80,13 +70,13 @@ namespace articulos_web
                 txtCodigo.Text = prod.Codigo.ToString();
                 txtCodigo.Enabled= false;
                 imgArticulo.ImageUrl = prod.ImagenUrl.ToString();
-                Textareadisoren = "disabled";
+                txtDescripcion.Text = prod.Descripcion;
+                txtDescripcion.ReadOnly = true;
                 ddlMarca.SelectedValue = prod.Marca.Descripcion;
                 ddlMarca.Enabled= false;
                 ddlCategoria.SelectedValue = prod.Categoria.Descripcion;
                 ddlCategoria.Enabled= false;
-            }
-            
+            }           
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
@@ -94,23 +84,19 @@ namespace articulos_web
             ProductoService service = new ProductoService();
             ListaProducto = service.toListWithSP();
 
-
             Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
 
             modificar = true;
             lblTitulo.Text = "Modificar Producto";
-            txtId.Enabled = true;
             txtNombre.Enabled = true;
             txtImagenUrl.Enabled = true;
             txtPrecio.Enabled = true;
             txtCodigo.Enabled = true;
-            Textareadisoren = "";
             ddlMarca.Enabled = true;
-            ddlCategoria.Enabled = true;
+            txtDescripcion.ReadOnly = false;
             btnEliminar.Visible = false;
             btnModificar.Visible = false;
-            
-
+            txtDescripcion.Enabled = true;
         }
 
         protected void btnVolver_Click(object sender, EventArgs e)
@@ -126,5 +112,34 @@ namespace articulos_web
                 Response.Redirect("~/Default.aspx");
             }
         }
+
+        protected void btnAceptar_Click(object sender, EventArgs e)
+        {
+            if (Request.QueryString["id"] == null)
+            {
+                Producto prod = new Producto();
+                prod.Codigo = txtCodigo.Text;
+                prod.Nombre = txtNombre.Text;
+                prod.Descripcion = txtDescripcion.Text;
+                prod.ImagenUrl = txtImagenUrl.Text;
+                prod.Marca = new Marca();
+                prod.Marca.Descripcion = ddlMarca.SelectedValue;
+                prod.Marca.Id = ddlMarca.SelectedIndex;
+                prod.Categoria = new Categoria();
+                prod.Categoria.Descripcion = ddlCategoria.SelectedValue;
+                prod.Categoria.Id = ddlCategoria.SelectedIndex;
+                prod.Precio = int.Parse(txtPrecio.Text);
+
+                ProductoService service = new ProductoService();
+                service.agregar(prod);
+
+                string script = "alert('Producto Agregado!');";
+                ScriptManager.RegisterStartupScript(this, GetType(), "BackendAlert", script, true);
+
+                Response.Redirect("ListaArticulos.aspx", false);
+
+
+            }
+        }      
     }
 }
