@@ -7,20 +7,26 @@
     <div class="container fondoblanco">
         <%-- TITULO --%>
         <div class="row">
-            <asp:Label ID="lblTitulo" runat="server" Text="Agregar Producto" CssClass="fs-1 fw-semibold"></asp:Label>
+            <div class="col-6 d-flex justify-content-center">
+                <asp:Label ID="lblTitulo" runat="server" Text="Agregar Producto" CssClass="fs-1 fw-semibold "></asp:Label>
+            </div>
         </div>
         <%-- FIN DEL TITULO --%>
 
         <div class="row">
 
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <div class="row pb-3 pt-2" style="background-color: red;">
 
-                    <div class="col">
+                    <div class="col-3">
                         <label class="d-block form-label fw-semibold" for="txtId">ID:</label>
                         <asp:TextBox runat="server" ID="txtId" CssClass="form-control" />
                     </div>
-                    <div class="col">
+                    <div class="col-3">
+                        <label class="d-block form-label fw-semibold" for="txtCodigo">Codigo:</label>
+                        <asp:TextBox runat="server" ID="txtCodigo" CssClass="form-control" />
+                    </div>
+                    <div class="col-6">
                         <label class="d-block form-label fw-semibold" for="txtNombre">Nombre:</label>
                         <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
                     </div>
@@ -38,10 +44,11 @@
                             if (Request.QueryString["id"] != null)
                             {
                                 prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
+                                
                             }
                         %>
-
-                        <textarea id="txtDescripcion" class="form-control d-flex" rows="3"><%: prod.Descripcion %></textarea>
+                       
+                        <textarea id="txtDescripcion" class="form-control d-flex" rows="3" <%: Textareadisoren.ToString() %> > <%: prod.Descripcion %></textarea>
                     </div>
                 </div>
 
@@ -57,21 +64,52 @@
                 </div>
 
                 <div class="row pb-3 pt-2" style="background-color: darkorchid;">
-
                     <div class="col">
                         <label class="form-label d-block fw-semibold" for="txtImagenUrl">ImagenURL:</label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control" />
                     </div>
-
-
                 </div>
 
+                <div class="row pb-3 pt-3" style="background-color: cornflowerblue;">
+                    <div class="col">
+                        <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click"/>
+                    </div>
+
+                    <div class="col d-flex justify-content-end">
+                        <%
+                            if (Request.QueryString["id"] != null)
+                            {                            
+                        %>
+                        <div class="me-1">
+                            <asp:Button Text="Modificar" runat="server" ID="btnModificar" CssClass="btn btn-success" OnClick="btnModificar_Click" />
+                        </div>
+                        <div id="divEliminar" class="ms-1">
+                            <asp:Button Text="Eliminar" runat="server" ID="btnEliminar" CssClass="btn btn-danger"/>
+                        </div>
+                        <%} %>
+                        <%if (modificar == true)
+                            {
+                                
+                            %>
+                        
+                        <div class="ms-1">
+                            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-success"/>
+                        </div>
+                           <% } %>
+                    </div>
+                </div>
+
+
             </div>
-            <div class="col py-3" style="background-color: khaki;">
-                <asp:Image ImageUrl="https://fondosmil.com/fondo/29403.jpg" runat="server" Width="100%" class="" />
+
+            <div class="col-12 col-sm-6 py-3" style="background-color: khaki;">
+                <div class="d-flex justify-content-center">
+                    <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" style="object-fit:contain"/>
+                </div>
                 <label class="form-label d-block fw-semibold pt-1 text-end" for="txtPrecio">PRECIO DEL PRODUCTO</label>
-                <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control" />
+                <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
             </div>
+
         </div>
 
 

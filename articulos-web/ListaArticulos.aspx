@@ -14,14 +14,16 @@
                     <asp:BoundField HeaderText="Categoria" DataField="Categoria.Descripcion" />
                     <asp:BoundField HeaderText="Precio" DataField="Precio" />
                     <asp:CommandField ShowSelectButton="true" SelectText="Detalle" HeaderText="Acciones" />
-                       
-                      
-                   
                 </Columns>
             </asp:GridView>   
-
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center mt-3">
+        <div class="col-10">
+            <a href="Producto.aspx" class="btn btn-primary">Crear Producto</a>
 
         </div>
 
+        
     </div>
 </asp:Content>
