@@ -36,5 +36,34 @@ namespace service
             }
         }
 
+        public List<Marca> toListWithSP()
+        {
+            List<Marca> list = new List<Marca>();
+            DataAccess datos = new DataAccess();
+            try
+            {
+                //datos.setQuery("Select Id, Descripcion From MARCAS");
+
+                datos.setStoreProcedure("spMarcaList");
+                datos.executeRead();
+                while (datos.Reader.Read())
+                {
+                    Marca aux = new Marca();
+                    aux.Id = (int)datos.Reader["Id"];
+                    aux.Descripcion = (string)datos.Reader["Descripcion"];
+                    list.Add(aux);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.closeConnection();
+            }
+        }
+
     }
 }

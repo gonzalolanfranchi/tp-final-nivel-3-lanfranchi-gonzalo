@@ -11,7 +11,7 @@ namespace articulos_web
 {
 
 
-    public partial class Default
+    public partial class CartasDeArticulos
     {
     }
 }

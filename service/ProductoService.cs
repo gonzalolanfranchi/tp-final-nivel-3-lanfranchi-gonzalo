@@ -51,6 +51,51 @@ namespace service
             }
         }
 
+        public List<Producto> toListWithSP()
+        {
+            List<Producto> list = new List<Producto>();
+            DataAccess data = new DataAccess();
+
+            try
+            {
+                //string query = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id";
+
+                //data.setQuery(query);
+                data.setStoreProcedure("storedListar");
+                data.executeRead();
+
+                while (data.Reader.Read())
+                {
+                    Producto aux = new Producto();
+                    aux.Id = (int)data.Reader["Id"];
+                    aux.Codigo = (string)data.Reader["Codigo"];
+                    aux.Nombre = (string)data.Reader["Nombre"];
+                    aux.Descripcion = (string)data.Reader["Descripcion"];
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)data.Reader["IdMarca"];
+                    aux.Marca.Descripcion = (string)data.Reader["Marca"];
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)data.Reader["IdCategoria"];
+                    aux.Categoria.Descripcion = (string)data.Reader["Categoria"];
+                    aux.ImagenUrl = (string)data.Reader["ImagenUrl"];
+                    aux.Precio = (decimal)data.Reader["Precio"];
+
+                    list.Add(aux);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
+
         public void eliminar(int id)
         {
             DataAccess datos = new DataAccess();

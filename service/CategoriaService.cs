@@ -35,5 +35,33 @@ namespace service
                 datos.closeConnection();
             }
         }
+
+        public List<Categoria> toListWithSP()
+        {
+            List<Categoria> list = new List<Categoria>();
+            DataAccess datos = new DataAccess();
+            try
+            {
+                //datos.setQuery("Select Id, Descripcion From CATEGORIAS");
+                datos.setStoreProcedure("spCatList");
+                datos.executeRead();
+                while (datos.Reader.Read())
+                {
+                    Categoria aux = new Categoria();
+                    aux.Id = (int)datos.Reader["Id"];
+                    aux.Descripcion = (string)datos.Reader["Descripcion"];
+                    list.Add(aux);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.closeConnection();
+            }
+        }
     }
 }

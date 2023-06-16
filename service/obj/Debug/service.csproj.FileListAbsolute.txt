@@ -7,3 +7,12 @@ C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.c
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.csproj.CopyComplete
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.dll
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\service\obj\Debug\service.pdb
+Z:\Curso C# Nivel 3\articulos-web\service\bin\Debug\service.dll
+Z:\Curso C# Nivel 3\articulos-web\service\bin\Debug\service.pdb
+Z:\Curso C# Nivel 3\articulos-web\service\bin\Debug\domain.dll
+Z:\Curso C# Nivel 3\articulos-web\service\bin\Debug\domain.pdb
+Z:\Curso C# Nivel 3\articulos-web\service\obj\Debug\service.csproj.AssemblyReference.cache
+Z:\Curso C# Nivel 3\articulos-web\service\obj\Debug\service.csproj.CoreCompileInputs.cache
+Z:\Curso C# Nivel 3\articulos-web\service\obj\Debug\service.csproj.CopyComplete
+Z:\Curso C# Nivel 3\articulos-web\service\obj\Debug\service.dll
+Z:\Curso C# Nivel 3\articulos-web\service\obj\Debug\service.pdb

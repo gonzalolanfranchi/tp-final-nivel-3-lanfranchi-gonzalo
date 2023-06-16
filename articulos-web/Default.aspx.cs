@@ -13,5 +13,10 @@ namespace articulos_web
         {
 
         }
+
+        protected void IrALosProductos_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ListaArticulos.aspx", false);
+        }
     }
 }

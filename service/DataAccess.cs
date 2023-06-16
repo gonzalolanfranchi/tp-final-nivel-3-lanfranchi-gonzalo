@@ -69,5 +69,11 @@ namespace service
                 reader.Close();
             connection.Close();
         }
+
+        public void setStoreProcedure(string sp)
+        {
+            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandText = sp;
+        }
     }
 }
