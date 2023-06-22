@@ -69,6 +69,15 @@ namespace articulos_web
         protected global::System.Web.UI.WebControls.DropDownList ddlMarca;
 
         /// <summary>
+        /// Control btnAgregarMarca.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarMarca;
+
+        /// <summary>
         /// Control ddlCategoria.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace articulos_web
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
+
+        /// <summary>
+        /// Control btnAgregarCategoria.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarCategoria;
 
         /// <summary>
         /// Control txtImagenUrl.

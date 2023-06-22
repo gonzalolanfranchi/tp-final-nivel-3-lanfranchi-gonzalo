@@ -4,7 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container fondoblanco">
+    <div class="container rounded rounded-4" style="background-color: lightgrey">
         <%-- TITULO --%>
         <div class="row">
             <div class="col-6 d-flex justify-content-center">
@@ -16,7 +16,7 @@
         <div class="row">
 
             <div class="col-12 col-sm-6">
-                <div class="row pb-3 pt-2" style="background-color: red;">
+                <div class="row pb-3 pt-2">
 
                     <div class="col-3">
                         <label class="d-block form-label fw-semibold" for="txtId">ID:</label>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="row pb-3 pt-2" style="background-color: chocolate;">
+                <div class="row pb-3 pt-2">
 
                     <div class="col">
                         <label class="form-label d-block fw-semibold" for="txtDescripcion">Descripcion:</label>
@@ -40,25 +40,33 @@
                     </div>
                 </div>
 
-                <div class="row pb-3 pt-2" style="background-color: crimson;">
-                    <div class="col">
+                <div class="row pb-3 pt-2">
+                    <div class="col-4">
                         <label class="form-label d-block fw-semibold" for="ddlMarca">Marca:</label>
                         <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-select"></asp:DropDownList>
                     </div>
-                    <div class="col">
+                    <div class="col-2">
+                        <label class="form-label d-block fw-semibold" for="btnAgregarMarca">Nueva:</label>
+                        <asp:Button Text="+" runat="server" ID="btnAgregarMarca" CssClass="btn btn-outline-success w-75" />
+                    </div>
+                    <div class="col-4">
                         <label class="form-label d-block fw-semibold" for="ddlCategoria">Categoria:</label>
                         <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select"></asp:DropDownList>
                     </div>
+                    <div class="col-2">
+                        <label class="form-label d-block fw-semibold" for="btnAgregarCategoria">Nueva:</label>
+                        <asp:Button Text="+" runat="server" ID="btnAgregarCategoria" CssClass="btn btn-outline-success w-75" />
+                    </div>
                 </div>
 
-                <div class="row pb-3 pt-2" style="background-color: darkorchid;">
+                <div class="row pb-3 pt-2">
                     <div class="col">
                         <label class="form-label d-block fw-semibold" for="txtImagenUrl">ImagenURL:</label>
                         <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"/>
                     </div>
                 </div>
 
-                <div class="row pb-3 pt-3" style="background-color: cornflowerblue;">
+                <div class="row pb-3 pt-3">
                     <div class="col">
                         <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" />
                     </div>
@@ -81,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 py-3" style="background-color: khaki;">
+            <div class="col-12 col-sm-6 py-3">
                 <div class="d-flex justify-content-center">
                     <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" Style="object-fit: contain"  />
                 </div>
