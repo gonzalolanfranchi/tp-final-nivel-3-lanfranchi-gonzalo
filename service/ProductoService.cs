@@ -140,6 +140,31 @@ namespace service
             }
         }
 
+        public void addWithSP(Producto nuevo)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setStoreProcedure("storedAltaProducto");
+                datos.setParameter("@codigo", nuevo.Codigo);
+                datos.setParameter("@nombre", nuevo.Nombre);
+                datos.setParameter("@descripcion", nuevo.Descripcion);
+                datos.setParameter("@IdMarca", nuevo.Marca.Id);
+                datos.setParameter("@IdCategoria", nuevo.Categoria.Id);
+                datos.setParameter("@ImagenUrl", nuevo.ImagenUrl);
+                datos.setParameter("@Precio", nuevo.Precio);
+                datos.executeAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.closeConnection();
+            }
+        }
+
         public void modificar(Producto prod)
         {
             DataAccess datos = new DataAccess();

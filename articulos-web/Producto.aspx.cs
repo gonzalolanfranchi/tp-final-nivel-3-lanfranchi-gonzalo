@@ -27,26 +27,45 @@ namespace articulos_web
                     ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
                 }
 
-                // Cargar los Drop Down List
-                MarcaService marcaService = new MarcaService();
-                ListaMarcas = marcaService.toListWithSP();
-
-                ddlMarca.Items.Add("");
-
-                foreach (Marca marca in ListaMarcas)
+                try
                 {
-                    ddlMarca.Items.Add(marca.Descripcion);
+                    // Cargar los Drop Down List
+                    MarcaService marcaService = new MarcaService();
+                    ListaMarcas = marcaService.toListWithSP();
+
+                    //ddlMarca.Items.Add(" ");
+
+                    ddlMarca.DataSource = ListaMarcas;
+                    ddlMarca.DataValueField = "Id";
+                    ddlMarca.DataTextField = "Descripcion";
+                    ddlMarca.DataBind();
+
+                    //foreach (Marca marca in ListaMarcas)
+                    //{
+                    //    ddlMarca.Items.Add(marca.Descripcion);
+                    //}
+                    //LUEGO, MAS ADELANTE, ESTARIA BUENO ALGUN BOTON PARA AGREGAR MARCAS 
+
+                    CategoriaService categoriaService = new CategoriaService();
+                    ListaCategorias = categoriaService.toListWithSP();
+
+                    ddlCategoria.DataSource = ListaCategorias;
+                    ddlCategoria.DataValueField = "Id";
+                    ddlCategoria.DataTextField = "Descripcion";
+                    ddlCategoria.DataBind();
+
+                    //ddlCategoria.Items.Add("");
+
+                    //foreach (Categoria categoria in ListaCategorias)
+                    //{
+                    //    ddlCategoria.Items.Add(categoria.Descripcion);
+                    //}
                 }
-                //LUEGO, MAS ADELANTE, ESTARIA BUENO ALGUN BOTON PARA AGREGAR MARCAS 
-
-                CategoriaService categoriaService = new CategoriaService();
-                ListaCategorias = categoriaService.toListWithSP();
-
-                ddlCategoria.Items.Add("");
-
-                foreach (Categoria categoria in ListaCategorias)
+                catch (Exception ex)
                 {
-                    ddlCategoria.Items.Add(categoria.Descripcion);
+                    Session.Add("Error", ex);
+                    throw;
+                    //redireccion a otra pantalla
                 }
             }
 
@@ -117,28 +136,33 @@ namespace articulos_web
         {
             if (Request.QueryString["id"] == null)
             {
-                Producto prod = new Producto();
-                prod.Codigo = txtCodigo.Text;
-                prod.Nombre = txtNombre.Text;
-                prod.Descripcion = txtDescripcion.Text;
-                prod.ImagenUrl = txtImagenUrl.Text;
-                prod.Marca = new Marca();
-                prod.Marca.Descripcion = ddlMarca.SelectedValue;
-                prod.Marca.Id = ddlMarca.SelectedIndex;
-                prod.Categoria = new Categoria();
-                prod.Categoria.Descripcion = ddlCategoria.SelectedValue;
-                prod.Categoria.Id = ddlCategoria.SelectedIndex;
-                prod.Precio = int.Parse(txtPrecio.Text);
+                try
+                {
+                    Producto prod = new Producto();
+                    prod.Codigo = txtCodigo.Text;
+                    prod.Nombre = txtNombre.Text;
+                    prod.Descripcion = txtDescripcion.Text;
+                    prod.ImagenUrl = txtImagenUrl.Text;
+                    prod.Marca = new Marca();
+                    prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+                    prod.Categoria = new Categoria();
+                    prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+                    prod.Precio = int.Parse(txtPrecio.Text);
 
-                ProductoService service = new ProductoService();
-                service.agregar(prod);
+                    ProductoService service = new ProductoService();
+                    service.addWithSP(prod);
 
-                string script = "alert('Producto Agregado!');";
-                ScriptManager.RegisterStartupScript(this, GetType(), "BackendAlert", script, true);
+                    //string script = "alert('Producto Agregado!');";
+                    //ScriptManager.RegisterStartupScript(this, GetType(), "BackendAlert", script, true);
 
-                Response.Redirect("ListaArticulos.aspx", false);
-
-
+                    Response.Redirect("ListaArticulos.aspx", false);
+                }
+                catch (Exception ex)
+                {
+                    Session.Add("Error", ex);
+                    throw;
+                    //pagina de error
+                }
             }
         }      
     }

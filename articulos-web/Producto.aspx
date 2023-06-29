@@ -7,7 +7,7 @@
     <div class="container rounded rounded-4" style="background-color: lightgrey">
         <%-- TITULO --%>
         <div class="row">
-            <div class="col-6 d-flex justify-content-center">
+            <div class="col-12 d-flex justify-content-center">
                 <asp:Label ID="lblTitulo" runat="server" Text="Agregar Producto" CssClass="fs-1 fw-semibold "></asp:Label>
             </div>
         </div>
