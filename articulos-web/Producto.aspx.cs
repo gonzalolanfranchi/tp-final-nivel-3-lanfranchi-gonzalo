@@ -12,15 +12,16 @@ namespace articulos_web
 {
     public partial class Detalle : System.Web.UI.Page
     {
-        public List<Producto> ListaProducto { get; set; }
-        public List<Marca> ListaMarcas { get; set; }
-        public List<Categoria> ListaCategorias { get; set; }
+        //public List<Producto> ListaProducto { get; set; }
+        //public List<Marca> ListaMarcas { get; set; }
+        //public List<Categoria> ListaCategorias { get; set; }
         public bool modificar = false;
         
         protected void Page_Load(object sender, EventArgs e)
         {          
             if (!IsPostBack)
             {
+
                 //Me guardo la pagina previa
                 if (Request.UrlReferrer != null)
                 {
@@ -31,35 +32,20 @@ namespace articulos_web
                 {
                     // Cargar los Drop Down List
                     MarcaService marcaService = new MarcaService();
-                    ListaMarcas = marcaService.toListWithSP();
+                    List<Marca> listaMarcas = marcaService.toListWithSP();
 
-                    //ddlMarca.Items.Add(" ");
-
-                    ddlMarca.DataSource = ListaMarcas;
+                    ddlMarca.DataSource = listaMarcas;
                     ddlMarca.DataValueField = "Id";
                     ddlMarca.DataTextField = "Descripcion";
                     ddlMarca.DataBind();
 
-                    //foreach (Marca marca in ListaMarcas)
-                    //{
-                    //    ddlMarca.Items.Add(marca.Descripcion);
-                    //}
-                    //LUEGO, MAS ADELANTE, ESTARIA BUENO ALGUN BOTON PARA AGREGAR MARCAS 
-
                     CategoriaService categoriaService = new CategoriaService();
-                    ListaCategorias = categoriaService.toListWithSP();
+                    List<Categoria> listaCategorias = categoriaService.toListWithSP();
 
-                    ddlCategoria.DataSource = ListaCategorias;
+                    ddlCategoria.DataSource = listaCategorias;
                     ddlCategoria.DataValueField = "Id";
                     ddlCategoria.DataTextField = "Descripcion";
                     ddlCategoria.DataBind();
-
-                    //ddlCategoria.Items.Add("");
-
-                    //foreach (Categoria categoria in ListaCategorias)
-                    //{
-                    //    ddlCategoria.Items.Add(categoria.Descripcion);
-                    //}
                 }
                 catch (Exception ex)
                 {
@@ -69,14 +55,13 @@ namespace articulos_web
                 }
             }
 
-
-            if (Request.QueryString["id"] != null)
+            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+            if (id != "" && !IsPostBack)
             {
                 ProductoService service = new ProductoService();
-                ListaProducto = service.toListWithSP();
-
-
-                Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
+                //List<Producto> listaProductos = service.toList(id);
+                //Producto prod = listaProductos[0];
+                Producto prod = (service.toList(id))[0];
 
                 lblTitulo.Text = "Detalle del Producto";
                 txtId.Text = prod.Id.ToString();
@@ -91,19 +76,19 @@ namespace articulos_web
                 imgArticulo.ImageUrl = prod.ImagenUrl.ToString();
                 txtDescripcion.Text = prod.Descripcion;
                 txtDescripcion.ReadOnly = true;
-                ddlMarca.SelectedValue = prod.Marca.Descripcion;
+                ddlMarca.SelectedValue = prod.Marca.Id.ToString();
                 ddlMarca.Enabled= false;
-                ddlCategoria.SelectedValue = prod.Categoria.Descripcion;
+                ddlCategoria.SelectedValue = prod.Categoria.Id.ToString();
                 ddlCategoria.Enabled= false;
             }           
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            ProductoService service = new ProductoService();
-            ListaProducto = service.toListWithSP();
+            //ProductoService service = new ProductoService();
+            //ListaProducto = service.toListWithSP();
 
-            Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
+            //Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
 
             modificar = true;
             lblTitulo.Text = "Modificar Producto";
@@ -112,6 +97,7 @@ namespace articulos_web
             txtPrecio.Enabled = true;
             txtCodigo.Enabled = true;
             ddlMarca.Enabled = true;
+            ddlCategoria.Enabled = true;
             txtDescripcion.ReadOnly = false;
             btnEliminar.Visible = false;
             btnModificar.Visible = false;
@@ -134,36 +120,41 @@ namespace articulos_web
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Request.QueryString["id"] == null)
+            
+            try
             {
-                try
-                {
-                    Producto prod = new Producto();
-                    prod.Codigo = txtCodigo.Text;
-                    prod.Nombre = txtNombre.Text;
-                    prod.Descripcion = txtDescripcion.Text;
-                    prod.ImagenUrl = txtImagenUrl.Text;
-                    prod.Marca = new Marca();
-                    prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
-                    prod.Categoria = new Categoria();
-                    prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-                    prod.Precio = int.Parse(txtPrecio.Text);
+                Producto prod = new Producto();
+                ProductoService service = new ProductoService();
+                prod.Codigo = txtCodigo.Text;
+                prod.Nombre = txtNombre.Text;
+                prod.Descripcion = txtDescripcion.Text;
+                prod.ImagenUrl = txtImagenUrl.Text;
+                prod.Marca = new Marca();
+                prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
+                prod.Categoria = new Categoria();
+                prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+                prod.Precio = int.Parse(txtPrecio.Text); // esto esta fallando cuando modifico porque lo cargo con $
 
-                    ProductoService service = new ProductoService();
+
+                if (Request.QueryString["id"] != null)
+                    service.modificarConSP(prod);
+                else
                     service.addWithSP(prod);
 
-                    //string script = "alert('Producto Agregado!');";
-                    //ScriptManager.RegisterStartupScript(this, GetType(), "BackendAlert", script, true);
-
-                    Response.Redirect("ListaArticulos.aspx", false);
-                }
-                catch (Exception ex)
-                {
-                    Session.Add("Error", ex);
-                    throw;
-                    //pagina de error
-                }
+                Response.Redirect("ListaArticulos.aspx", false);
             }
-        }      
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+                throw;
+                //pagina de error
+            }            
+
+        }
+
+        protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
+        {
+            imgArticulo.ImageUrl = txtImagenUrl.Text;
+        }
     }
 }

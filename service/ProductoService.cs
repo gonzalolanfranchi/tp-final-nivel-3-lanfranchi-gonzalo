@@ -12,14 +12,18 @@ namespace service
 {
     public class ProductoService
     {
-        public List<Producto> toList()
+        public List<Producto> toList(string id = "")
         {
             List<Producto> list = new List<Producto>();
             DataAccess data = new DataAccess();
 
             try
             {
-                data.setQuery("Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id\r\n");
+                string query = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id ";
+                if (id != "")
+                    query += "and A.Id = " + id;
+                    
+                data.setQuery(query);
                 data.executeRead();
                 while (data.Reader.Read())
                 {
@@ -171,6 +175,32 @@ namespace service
             try
             {
                 datos.setQuery("update ARTICULOS set Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @imagenUrl, Precio = @precio where Id = @id");
+                datos.setParameter("@codigo", prod.Codigo);
+                datos.setParameter("@nombre", prod.Nombre);
+                datos.setParameter("@descripcion", prod.Descripcion);
+                datos.setParameter("@idMarca", prod.Marca.Id);
+                datos.setParameter("@idCategoria", prod.Categoria.Id);
+                datos.setParameter("@imagenUrl", prod.ImagenUrl);
+                datos.setParameter("@precio", prod.Precio);
+                datos.setParameter("Id", prod.Id);
+                datos.executeAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.closeConnection();
+            }
+        }
+
+        public void modificarConSP(Producto prod)
+        {
+            DataAccess datos = new DataAccess();
+            try
+            {
+                datos.setStoreProcedure("storedModificarArticulo");
                 datos.setParameter("@codigo", prod.Codigo);
                 datos.setParameter("@nombre", prod.Nombre);
                 datos.setParameter("@descripcion", prod.Descripcion);

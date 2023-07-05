@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager runat="server"></asp:ScriptManager>
 
     <div class="container rounded rounded-4" style="background-color: lightgrey">
         <%-- TITULO --%>
@@ -59,18 +60,24 @@
                     </div>
                 </div>
 
+
+
                 <div class="row pb-3 pt-2">
-                    <div class="col">
-                        <label class="form-label d-block fw-semibold" for="txtImagenUrl">ImagenURL:</label>
-                        <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control"/>
-                    </div>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <div class="col">
+                                <label class="form-label d-block fw-semibold" for="txtImagenUrl">ImagenURL:</label>
+                                <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control" OnTextChanged="txtImagenUrl_TextChanged" AutoPostBack="true"/>
+                            </div>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
+
 
                 <div class="row pb-3 pt-3">
                     <div class="col">
                         <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" />
                     </div>
-
                     <div class="col d-flex justify-content-end">
                         <%if (Request.QueryString["id"] != null){%>
                         <div class="me-1">
@@ -84,14 +91,17 @@
                         <div class="ms-1" <%=(modificar || Request.QueryString["id"] == null) ? "" : "style='display: none'"%>>
                             <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-success" OnClick="btnAceptar_Click" />
                         </div>
-
                     </div>
                 </div>
             </div>
 
             <div class="col-12 col-sm-6 py-3">
                 <div class="d-flex justify-content-center">
-                    <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" Style="object-fit: contain"  />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" Style="object-fit: contain"  />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
                 <label class="form-label d-block fs-2 fw-semibold pt-1 text-end mt-2" for="txtPrecio">Precio por unidad</label>
                 <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
