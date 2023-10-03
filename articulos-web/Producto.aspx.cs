@@ -3,6 +3,7 @@ using service;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -16,7 +17,8 @@ namespace articulos_web
         //public List<Marca> ListaMarcas { get; set; }
         //public List<Categoria> ListaCategorias { get; set; }
         public bool modificar = false;
-        
+        public CultureInfo ci = new CultureInfo("es-AR");
+
         protected void Page_Load(object sender, EventArgs e)
         {          
             if (!IsPostBack)
@@ -56,7 +58,7 @@ namespace articulos_web
             }
 
             string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-            if (id != "" && !IsPostBack)
+            if (id != "")
             {
                 ProductoService service = new ProductoService();
                 //List<Producto> listaProductos = service.toList(id);
@@ -69,7 +71,7 @@ namespace articulos_web
                 txtNombre.Enabled= false;
                 txtImagenUrl.Text = prod.ImagenUrl.ToString();
                 txtImagenUrl.Enabled= false;
-                txtPrecio.Text = "$" + prod.Precio.ToString("0.00");
+                txtPrecio.Text = prod.Precio.ToString("C2", ci);
                 txtPrecio.Enabled= false;
                 txtCodigo.Text = prod.Codigo.ToString();
                 txtCodigo.Enabled= false;
@@ -80,7 +82,10 @@ namespace articulos_web
                 ddlMarca.Enabled= false;
                 ddlCategoria.SelectedValue = prod.Categoria.Id.ToString();
                 ddlCategoria.Enabled= false;
-            }           
+            }  
+            
+                                                                                                                                
+
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
@@ -133,11 +138,17 @@ namespace articulos_web
                 prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
                 prod.Categoria = new Categoria();
                 prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-                prod.Precio = int.Parse(txtPrecio.Text); // esto esta fallando cuando modifico porque lo cargo con $
+
+
+                string precio = txtPrecio.Text;
+                prod.Precio = decimal.Parse(formatPrice(precio));
 
 
                 if (Request.QueryString["id"] != null)
+                {
+                    prod.Id = int.Parse(Request.QueryString["id"]);
                     service.modificarConSP(prod);
+                }
                 else
                     service.addWithSP(prod);
 
@@ -155,6 +166,15 @@ namespace articulos_web
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)
         {
             imgArticulo.ImageUrl = txtImagenUrl.Text;
+        }
+
+        public string formatPrice(string precio)
+        {
+            if (precio.Contains(".") && precio.Contains(","))
+                precio = precio.Replace(".", "").Replace("$", "").Trim();
+            else
+                precio = precio.Replace(".", ",").Replace("$", "").Trim();
+            return precio;
         }
     }
 }

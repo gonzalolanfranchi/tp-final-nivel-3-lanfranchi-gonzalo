@@ -182,7 +182,7 @@ namespace service
                 datos.setParameter("@idCategoria", prod.Categoria.Id);
                 datos.setParameter("@imagenUrl", prod.ImagenUrl);
                 datos.setParameter("@precio", prod.Precio);
-                datos.setParameter("Id", prod.Id);
+                datos.setParameter("@id", prod.Id);
                 datos.executeAction();
             }
             catch (Exception ex)
@@ -200,6 +200,7 @@ namespace service
             DataAccess datos = new DataAccess();
             try
             {
+
                 datos.setStoreProcedure("storedModificarArticulo");
                 datos.setParameter("@codigo", prod.Codigo);
                 datos.setParameter("@nombre", prod.Nombre);
@@ -208,7 +209,7 @@ namespace service
                 datos.setParameter("@idCategoria", prod.Categoria.Id);
                 datos.setParameter("@imagenUrl", prod.ImagenUrl);
                 datos.setParameter("@precio", prod.Precio);
-                datos.setParameter("Id", prod.Id);
+                datos.setParameter("@id", prod.Id);
                 datos.executeAction();
             }
             catch (Exception ex)

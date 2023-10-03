@@ -21,7 +21,7 @@
 
                     <div class="col-3">
                         <label class="d-block form-label fw-semibold" for="txtId">ID:</label>
-                        <asp:TextBox runat="server" ID="txtId" CssClass="form-control" Enabled="false"/>
+                        <asp:TextBox runat="server" ID="txtId" CssClass="form-control" Enabled="false" />
                     </div>
                     <div class="col-3">
                         <label class="d-block form-label fw-semibold" for="txtCodigo">Codigo:</label>
@@ -67,7 +67,7 @@
                         <ContentTemplate>
                             <div class="col">
                                 <label class="form-label d-block fw-semibold" for="txtImagenUrl">ImagenURL:</label>
-                                <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control" OnTextChanged="txtImagenUrl_TextChanged" AutoPostBack="true"/>
+                                <asp:TextBox runat="server" ID="txtImagenUrl" CssClass="form-control" OnTextChanged="txtImagenUrl_TextChanged" AutoPostBack="true" />
                             </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -79,7 +79,8 @@
                         <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" />
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <%if (Request.QueryString["id"] != null){%>
+                        <%if (Request.QueryString["id"] != null)
+                            {%>
                         <div class="me-1">
                             <asp:Button Text="Modificar" runat="server" ID="btnModificar" CssClass="btn btn-success" OnClick="btnModificar_Click" />
                         </div>
@@ -99,12 +100,15 @@
                 <div class="d-flex justify-content-center">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" Style="object-fit: contain"  />
+                            <asp:Image ID="imgArticulo" runat="server" Height="300px" Width="300px" CssClass="img-thumbnail" Style="object-fit: contain" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
-                <label class="form-label d-block fs-2 fw-semibold pt-1 text-end mt-2" for="txtPrecio">Precio por unidad</label>
-                <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
+                <asp:Panel ID="Panel1" runat="server" DefaultButton="btnAceptarr">
+                    <asp:Button ID="BtnAceptarr" runat="server" Text="Buscar" OnClick="btnAceptar_Click" Visible="false"/>
+                    <label class="form-label d-block fs-2 fw-semibold pt-1 text-end mt-2" for="txtPrecio">Precio por unidad</label>
+                    <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
+                </asp:Panel>
             </div>
 
         </div>
