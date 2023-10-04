@@ -34,7 +34,7 @@ namespace articulos_web
                 {
                     // Cargar los Drop Down List
                     MarcaService marcaService = new MarcaService();
-                    List<Marca> listaMarcas = marcaService.toListWithSP();
+                    List<Marca> listaMarcas = marcaService.toList();
 
                     ddlMarca.DataSource = listaMarcas;
                     ddlMarca.DataValueField = "Id";
@@ -42,7 +42,7 @@ namespace articulos_web
                     ddlMarca.DataBind();
 
                     CategoriaService categoriaService = new CategoriaService();
-                    List<Categoria> listaCategorias = categoriaService.toListWithSP();
+                    List<Categoria> listaCategorias = categoriaService.toList();
 
                     ddlCategoria.DataSource = listaCategorias;
                     ddlCategoria.DataValueField = "Id";
@@ -147,10 +147,10 @@ namespace articulos_web
                 if (Request.QueryString["id"] != null)
                 {
                     prod.Id = int.Parse(Request.QueryString["id"]);
-                    service.modificarConSP(prod);
+                    service.modificar(prod);
                 }
                 else
-                    service.addWithSP(prod);
+                    service.agregar(prod);
 
                 Response.Redirect("ListaArticulos.aspx", false);
             }

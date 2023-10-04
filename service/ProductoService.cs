@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using domain;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace service
 {
@@ -222,7 +223,7 @@ namespace service
             }
         }
 
-        public List<Producto> filtrar(string campo, string criterio, string filtro)
+        public List<Producto> filtrar(string campo, string criterio, string filtro, string tieneImagen)
         {
             List<Producto> list = new List<Producto>();
             DataAccess data = new DataAccess();
@@ -302,6 +303,22 @@ namespace service
                         }
                         break;
                 }
+
+                switch (tieneImagen)
+                {
+                    case "Imagen Completa":
+                        query += " AND (ImagenURL != '' OR ImagenURL IS NOT NULL)";
+
+                        break;
+                    case "Imagen Incompleta":
+                        query += " AND (ImagenURL = '' OR ImagenURL IS NULL)";
+                        break;
+                    default:
+                        break;
+                }
+
+                
+
                 data.setQuery(query);
                 data.executeRead();
 

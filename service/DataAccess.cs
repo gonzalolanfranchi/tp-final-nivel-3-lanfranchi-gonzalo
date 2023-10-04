@@ -20,7 +20,7 @@ namespace service
 
         public DataAccess()
         {
-            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true");
+            connection = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true");
             command = new SqlCommand();
         }
 

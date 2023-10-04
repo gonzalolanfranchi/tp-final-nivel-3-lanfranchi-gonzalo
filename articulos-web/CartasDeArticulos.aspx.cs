@@ -15,7 +15,7 @@ namespace articulos_web
         protected void Page_Load(object sender, EventArgs e)
         {
             ProductoService service = new ProductoService();
-            ListaProducto = service.toListWithSP();
+            ListaProducto = service.toList();
 
         }
     }

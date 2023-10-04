@@ -51,13 +51,13 @@ namespace articulos_web
         protected global::System.Web.UI.WebControls.DropDownList ddlCriterio;
 
         /// <summary>
-        /// Control ddlActivo.
+        /// Control ddlImagen.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlActivo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlImagen;
 
         /// <summary>
         /// Control btnFiltrar.

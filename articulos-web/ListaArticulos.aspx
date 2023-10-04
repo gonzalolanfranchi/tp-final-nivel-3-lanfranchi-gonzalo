@@ -52,10 +52,10 @@
                         <div class="col-3">
                             <div class="mb-3">
                                 <asp:Label Text="Estado" runat="server" />
-                                <asp:DropDownList runat="server" ID="ddlActivo" CssClass="form-control">
+                                <asp:DropDownList runat="server" ID="ddlImagen" CssClass="form-control">
                                     <asp:ListItem Text="Todos" />
-                                    <asp:ListItem Text="Activos" />
-                                    <asp:ListItem Text="Inactivos" />
+                                    <asp:ListItem Text="Imagen Completa" />
+                                    <asp:ListItem Text="Imagen Incompleta" />
                                 </asp:DropDownList>
                             </div>
                         </div>

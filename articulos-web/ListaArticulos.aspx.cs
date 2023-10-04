@@ -23,7 +23,7 @@ namespace articulos_web
             {
                 FiltroAvanzado = false;
                 ProductoService service = new ProductoService();
-                Session.Add("productos", service.toListWithSP());
+                Session.Add("productos", service.toList());
                 dgvArticulos.DataSource = Session["productos"];
                 dgvArticulos.DataBind();
                 ddlCriterio.Items.Add("Que Contenga");
@@ -50,11 +50,21 @@ namespace articulos_web
         {
             if (txtFiltro.Text == "")
             {
-                dgvArticulos.DataSource = Session["productos"];
-                dgvArticulos.DataBind();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                if (!checkFiltroAvanzado.Checked)
+                {
+                    dgvArticulos.DataSource = Session["productos"];
+                    dgvArticulos.DataBind();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
 
-                return;
+                    return;
+                }
+                else
+                {
+                    ProductoService service = new ProductoService();
+                    dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
+                    dgvArticulos.DataBind();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                }
             }
 
             if (validarFiltro())
@@ -70,7 +80,7 @@ namespace articulos_web
                 else
                 {
                     ProductoService service = new ProductoService();
-                    dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text);
+                    dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
                     dgvArticulos.DataBind();
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
                 }
