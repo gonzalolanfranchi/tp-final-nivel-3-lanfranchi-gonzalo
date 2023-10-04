@@ -79,19 +79,26 @@
                         <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" />
                     </div>
                     <div class="col d-flex justify-content-end">
-                        <%if (Request.QueryString["id"] != null)
-                            {%>
+                        <%
+                            if ((bool)Session["modificar"] || Request.QueryString["id"] == null)
+                            {
+
+                        %>
+                        <div class="ms-1">
+                            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-success" OnClick="btnAceptar_Click" />
+                        </div>
+                        <%}
+                        else
+                        {%>
                         <div class="me-1">
                             <asp:Button Text="Modificar" runat="server" ID="btnModificar" CssClass="btn btn-success" OnClick="btnModificar_Click" />
                         </div>
                         <div id="divEliminar" class="ms-1">
                             <asp:Button Text="Eliminar" runat="server" ID="btnEliminar" CssClass="btn btn-danger" />
                         </div>
-                        <%} %>
+                        <%}%>
 
-                        <div class="ms-1" <%=(modificar || Request.QueryString["id"] == null) ? "" : "style='display: none'"%>>
-                            <asp:Button Text="Aceptar" runat="server" ID="btnAceptar" CssClass="btn btn-success" OnClick="btnAceptar_Click" />
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -105,7 +112,7 @@
                     </asp:UpdatePanel>
                 </div>
                 <asp:Panel ID="Panel1" runat="server" DefaultButton="btnAceptarr">
-                    <asp:Button ID="BtnAceptarr" runat="server" Text="Buscar" OnClick="btnAceptar_Click" Visible="false"/>
+                    <asp:Button ID="BtnAceptarr" runat="server" Text="Buscar" OnClick="btnAceptar_Click" Visible="false" />
                     <label class="form-label d-block fs-2 fw-semibold pt-1 text-end mt-2" for="txtPrecio">Precio por unidad</label>
                     <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
                 </asp:Panel>

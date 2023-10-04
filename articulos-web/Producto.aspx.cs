@@ -6,6 +6,7 @@ using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using System.Web.Services.Description;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -16,13 +17,19 @@ namespace articulos_web
         //public List<Producto> ListaProducto { get; set; }
         //public List<Marca> ListaMarcas { get; set; }
         //public List<Categoria> ListaCategorias { get; set; }
-        public bool modificar = false;
+
+        
+        
         public CultureInfo ci = new CultureInfo("es-AR");
 
         protected void Page_Load(object sender, EventArgs e)
         {          
             if (!IsPostBack)
             {
+                if (Request.QueryString["id"] == "" || Request.QueryString["id"] == null)
+                {
+                    Session.Add("modificar", true);
+                }
 
                 //Me guardo la pagina previa
                 if (Request.UrlReferrer != null)
@@ -55,34 +62,41 @@ namespace articulos_web
                     throw;
                     //redireccion a otra pantalla
                 }
+
+                string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
+                if (id != "")
+                {
+                    ProductoService service = new ProductoService();
+                    //List<Producto> listaProductos = service.toList(id);
+                    //Producto prod = listaProductos[0];
+                    Producto prod = (service.toList(id))[0];
+
+
+
+                    Session["modificar"] = false;
+
+
+
+                    lblTitulo.Text = "Detalle del Producto";
+                    txtId.Text = prod.Id.ToString();
+                    txtNombre.Text = prod.Nombre;
+                    txtNombre.Enabled= false;
+                    txtImagenUrl.Text = prod.ImagenUrl.ToString();
+                    txtImagenUrl.Enabled= false;
+                    txtPrecio.Text = prod.Precio.ToString("C2", ci);
+                    txtPrecio.Enabled= false;
+                    txtCodigo.Text = prod.Codigo.ToString();
+                    txtCodigo.Enabled= false;
+                    imgArticulo.ImageUrl = prod.ImagenUrl.ToString();
+                    txtDescripcion.Text = prod.Descripcion;
+                    txtDescripcion.ReadOnly = true;
+                    ddlMarca.SelectedValue = prod.Marca.Id.ToString();
+                    ddlMarca.Enabled= false;
+                    ddlCategoria.SelectedValue = prod.Categoria.Id.ToString();
+                    ddlCategoria.Enabled= false;
+                }  
             }
 
-            string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
-            if (id != "")
-            {
-                ProductoService service = new ProductoService();
-                //List<Producto> listaProductos = service.toList(id);
-                //Producto prod = listaProductos[0];
-                Producto prod = (service.toList(id))[0];
-
-                lblTitulo.Text = "Detalle del Producto";
-                txtId.Text = prod.Id.ToString();
-                txtNombre.Text = prod.Nombre;
-                txtNombre.Enabled= false;
-                txtImagenUrl.Text = prod.ImagenUrl.ToString();
-                txtImagenUrl.Enabled= false;
-                txtPrecio.Text = prod.Precio.ToString("C2", ci);
-                txtPrecio.Enabled= false;
-                txtCodigo.Text = prod.Codigo.ToString();
-                txtCodigo.Enabled= false;
-                imgArticulo.ImageUrl = prod.ImagenUrl.ToString();
-                txtDescripcion.Text = prod.Descripcion;
-                txtDescripcion.ReadOnly = true;
-                ddlMarca.SelectedValue = prod.Marca.Id.ToString();
-                ddlMarca.Enabled= false;
-                ddlCategoria.SelectedValue = prod.Categoria.Id.ToString();
-                ddlCategoria.Enabled= false;
-            }  
             
                                                                                                                                 
 
@@ -95,7 +109,7 @@ namespace articulos_web
 
             //Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
 
-            modificar = true;
+            Session["modificar"] = true;
             lblTitulo.Text = "Modificar Producto";
             txtNombre.Enabled = true;
             txtImagenUrl.Enabled = true;
@@ -153,6 +167,7 @@ namespace articulos_web
                     service.agregar(prod);
 
                 Response.Redirect("ListaArticulos.aspx", false);
+
             }
             catch (Exception ex)
             {

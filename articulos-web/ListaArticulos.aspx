@@ -20,13 +20,19 @@
                         <div class="col-6 d-block">
                             <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="false"  CssClass="form-control" />
                         </div>
-                        <div class="col-3 d-block">
+                        <div class="col-2 d-block">
                             <asp:CheckBox Text="Filtro Avanzado" ID="checkFiltroAvanzado" runat="server" OnCheckedChanged="checkFiltroAvanzado_CheckedChanged" AutoPostBack="true" CssClass="" />
+                        </div>
+                        <div class="col-2 d-block" >
+                            <div class="">
+                                <asp:Button Text="Filtrar" runat="server" ID="btnFiltrar" OnClick="filtro_TextChanged" CssClass="btn btn-primary" />
+                            </div>
                         </div>
                     </div>
 
                     <%if (FiltroAvanzado)
                         {
+                        
                     %>
                     <div class="row">
                         <div class="col-3">
@@ -57,11 +63,6 @@
                                     <asp:ListItem Text="Imagen Completa" />
                                     <asp:ListItem Text="Imagen Incompleta" />
                                 </asp:DropDownList>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="mt-4">
-                                <asp:Button Text="Filtrar" runat="server" ID="btnFiltrar" OnClick="filtro_TextChanged" CssClass="btn btn-primary" />
                             </div>
                         </div>
                     </div>
