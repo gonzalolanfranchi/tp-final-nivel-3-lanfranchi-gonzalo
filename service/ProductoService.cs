@@ -254,15 +254,15 @@ namespace service
                     case "Marca":
                         switch (criterio)
                         {
-                            case "Contiene":
+                            default: // Que Contenga
                                 query += "M.Descripcion like '%" + filtro + "%'";
                                 break;
 
-                            case "Termina con":
+                            case "Que Termine Por":
                                 query += "M.Descripcion like '%" + filtro + "'";
                                 break;
 
-                            default: //Comienza con
+                            case "Que Empiece Por":
                                 query += "M.Descripcion like '" + filtro + "%'";
                                 break;
                         }
@@ -271,15 +271,15 @@ namespace service
                     case "Categoria":
                         switch (criterio)
                         {
-                            case "Contiene":
+                            default: // Que Contenga
                                 query += "C.Descripcion like '%" + filtro + "%'";
                                 break;
 
-                            case "Termina con":
+                            case "Que Termine Por":
                                 query += "C.Descripcion like '%" + filtro + "'";
                                 break;
 
-                            default: //Comienza con
+                            case "Que Empiece Por":
                                 query += "C.Descripcion like '" + filtro + "%'";
                                 break;
                         }
@@ -288,15 +288,15 @@ namespace service
                     default: //Nombre
                         switch (criterio)
                         {
-                            case "Contiene":
+                            default: // Que Contenga
                                 query += "Nombre like '%" + filtro + "%'";
                                 break;
 
-                            case "Termina con":
+                            case "Que Termine Por":
                                 query += "Nombre like '%" + filtro + "'";
                                 break;
 
-                            default: //Comienza con
+                            case "Que Empiece Por":
                                 query += "Nombre like '" + filtro + "%'";
                                 break;
                         }

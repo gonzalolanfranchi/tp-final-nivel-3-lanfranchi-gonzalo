@@ -52,6 +52,8 @@ namespace articulos_web
             {
                 dgvArticulos.DataSource = Session["productos"];
                 dgvArticulos.DataBind();
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+
                 return;
             }
 
