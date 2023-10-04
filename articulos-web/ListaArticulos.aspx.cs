@@ -92,7 +92,7 @@ namespace articulos_web
         protected void checkFiltroAvanzado_CheckedChanged(object sender, EventArgs e)
         {
             FiltroAvanzado = checkFiltroAvanzado.Checked;
-            btnFiltrar.Enabled = !checkFiltroAvanzado.Checked;
+
 
             //if (checkFiltroAvanzado.Checked)
             //    FiltroAvanzado = true;
