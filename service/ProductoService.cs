@@ -17,7 +17,6 @@ namespace service
         {
             List<Producto> list = new List<Producto>();
             DataAccess data = new DataAccess();
-
             try
             {
                 string query = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id ";
@@ -60,15 +59,10 @@ namespace service
         {
             List<Producto> list = new List<Producto>();
             DataAccess data = new DataAccess();
-
             try
             {
-                //string query = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id";
-
-                //data.setQuery(query);
                 data.setStoreProcedure("storedListar");
                 data.executeRead();
-
                 while (data.Reader.Read())
                 {
                     Producto aux = new Producto();
@@ -84,15 +78,12 @@ namespace service
                     aux.Categoria.Descripcion = (string)data.Reader["Categoria"];
                     aux.ImagenUrl = (string)data.Reader["ImagenUrl"];
                     aux.Precio = (decimal)data.Reader["Precio"];
-
                     list.Add(aux);
                 }
-
                 return list;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -231,7 +222,6 @@ namespace service
             try
             {
                 string query = "Select A.Id, Codigo, Nombre, A.Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca From ARTICULOS A, CATEGORIAS C, MARCAS M Where IdCategoria = C.Id AND IdMarca = M.Id AND ";
-
                 switch (campo)
                 {
                     case "Precio":
@@ -240,75 +230,61 @@ namespace service
                             case "Menor que":
                                 query += "Precio < " + filtro;
                                 break;
-
                             case "Mayor que":
                                 query += "Precio > " + filtro;
                                 break;
-
                             default: //Igual que
                                 query += "Precio = " + filtro;
                                 break;
                         }
-
                         break;
-
                     case "Marca":
                         switch (criterio)
                         {
                             default: // Que Contenga
                                 query += "M.Descripcion like '%" + filtro + "%'";
                                 break;
-
                             case "Que Termine Por":
                                 query += "M.Descripcion like '%" + filtro + "'";
                                 break;
-
                             case "Que Empiece Por":
                                 query += "M.Descripcion like '" + filtro + "%'";
                                 break;
                         }
                         break;
-
                     case "Categoria":
                         switch (criterio)
                         {
                             default: // Que Contenga
                                 query += "C.Descripcion like '%" + filtro + "%'";
                                 break;
-
                             case "Que Termine Por":
                                 query += "C.Descripcion like '%" + filtro + "'";
                                 break;
-
                             case "Que Empiece Por":
                                 query += "C.Descripcion like '" + filtro + "%'";
                                 break;
                         }
                         break;
-
                     default: //Nombre
                         switch (criterio)
                         {
                             default: // Que Contenga
                                 query += "Nombre like '%" + filtro + "%'";
                                 break;
-
                             case "Que Termine Por":
                                 query += "Nombre like '%" + filtro + "'";
                                 break;
-
                             case "Que Empiece Por":
                                 query += "Nombre like '" + filtro + "%'";
                                 break;
                         }
                         break;
                 }
-
                 switch (tieneImagen)
                 {
                     case "Imagen Completa":
                         query += " AND (ImagenURL != '' OR ImagenURL IS NOT NULL)";
-
                         break;
                     case "Imagen Incompleta":
                         query += " AND (ImagenURL = '' OR ImagenURL IS NULL)";
@@ -316,12 +292,8 @@ namespace service
                     default:
                         break;
                 }
-
-                
-
                 data.setQuery(query);
                 data.executeRead();
-
                 while (data.Reader.Read())
                 {
                     Producto aux = new Producto();
@@ -337,15 +309,12 @@ namespace service
                     aux.Categoria.Descripcion = (string)data.Reader["Categoria"];
                     aux.ImagenUrl = (string)data.Reader["ImagenUrl"];
                     aux.Precio = (decimal)data.Reader["Precio"];
-
                     list.Add(aux);
                 }
-
                 return list;
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally

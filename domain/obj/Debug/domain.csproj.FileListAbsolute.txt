@@ -4,3 +4,9 @@ C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.csp
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.csproj.CoreCompileInputs.cache
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.dll
 C:\Users\Gonza\source\repos\TPFinalNivel2_Lanfranchi\domain\obj\Debug\domain.pdb
+Z:\Curso C# Nivel 3\articulos-web\domain\bin\Debug\domain.dll
+Z:\Curso C# Nivel 3\articulos-web\domain\bin\Debug\domain.pdb
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Debug\domain.csproj.AssemblyReference.cache
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Debug\domain.csproj.CoreCompileInputs.cache
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Debug\domain.dll
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Debug\domain.pdb

@@ -30,13 +30,11 @@ namespace articulos_web
                 {
                     Session.Add("modificar", true);
                 }
-
                 //Me guardo la pagina previa
                 if (Request.UrlReferrer != null)
                 {
                     ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
                 }
-
                 try
                 {
                     // Cargar los Drop Down List
@@ -62,7 +60,6 @@ namespace articulos_web
                     throw;
                     //redireccion a otra pantalla
                 }
-
                 string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
                 if (id != "")
                 {
@@ -70,13 +67,7 @@ namespace articulos_web
                     //List<Producto> listaProductos = service.toList(id);
                     //Producto prod = listaProductos[0];
                     Producto prod = (service.toList(id))[0];
-
-
-
                     Session["modificar"] = false;
-
-
-
                     lblTitulo.Text = "Detalle del Producto";
                     txtId.Text = prod.Id.ToString();
                     txtNombre.Text = prod.Nombre;
@@ -96,19 +87,10 @@ namespace articulos_web
                     ddlCategoria.Enabled= false;
                 }  
             }
-
-            
-                                                                                                                                
-
         }
 
         protected void btnModificar_Click(object sender, EventArgs e)
         {
-            //ProductoService service = new ProductoService();
-            //ListaProducto = service.toListWithSP();
-
-            //Producto prod = ListaProducto.FirstOrDefault(p => p.Id == int.Parse(Request.QueryString["id"]));
-
             Session["modificar"] = true;
             lblTitulo.Text = "Modificar Producto";
             txtNombre.Enabled = true;
@@ -139,7 +121,6 @@ namespace articulos_web
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            
             try
             {
                 Producto prod = new Producto();
@@ -152,12 +133,8 @@ namespace articulos_web
                 prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
                 prod.Categoria = new Categoria();
                 prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
-
-
                 string precio = txtPrecio.Text;
                 prod.Precio = decimal.Parse(formatPrice(precio));
-
-
                 if (Request.QueryString["id"] != null)
                 {
                     prod.Id = int.Parse(Request.QueryString["id"]);
@@ -165,17 +142,14 @@ namespace articulos_web
                 }
                 else
                     service.agregar(prod);
-
-                Response.Redirect("ListaArticulos.aspx", false);
-
+                Response.Redirect("ListaArticulos.aspx" + "search=" + (Session["search"] != null ? Session["search"].ToString() : ""), false);
             }
             catch (Exception ex)
             {
                 Session.Add("Error", ex);
                 throw;
                 //pagina de error
-            }            
-
+            }    
         }
 
         protected void txtImagenUrl_TextChanged(object sender, EventArgs e)

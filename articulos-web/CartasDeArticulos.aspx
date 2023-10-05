@@ -15,8 +15,7 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <asp:Image ID="Image1" runat="server" />
-                    <img src="<%: prod.ImagenUrl %>" class="card-img-top" alt="..." style="max-height:300px; max-width: 300px;">
+                    <img src="<%: prod.ImagenUrl %>" class="card-img-top img-fluid" alt="..." style="max-height:300px; max-width: 300px;">
                     <div class="card-body">
                         <h5 class="card-title"><%: prod.Nombre %></h5>
                         <p class="card-text"><%: prod.Descripcion %></p>

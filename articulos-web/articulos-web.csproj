@@ -69,6 +69,9 @@
   <ItemGroup>
     <Content Include="CartasDeArticulos.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Error.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="MenuLogin.aspx" />
     <Content Include="Producto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ListaArticulos.aspx" />
@@ -90,6 +93,27 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuLogin.aspx.cs">
+      <DependentUpon>MenuLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuLogin.aspx.designer.cs">
+      <DependentUpon>MenuLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Producto.aspx.cs">
       <DependentUpon>Producto.aspx</DependentUpon>
