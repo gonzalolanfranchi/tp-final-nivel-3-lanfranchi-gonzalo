@@ -1,4 +1,5 @@
-﻿using System;
+﻿using domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,24 +13,33 @@ namespace articulos_web
         public bool usuarioLogueado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Response.Redirect("Login.aspx", false);
+            }
+
             if (!IsPostBack)
             {
-                if (Session["isLogged"] == null)
-                    Session.Add("isLogged", false);
-
-                if ((bool)Session["isLogged"])
+                if (Session["user"] != null)
                 {
-                    if((bool)Session["crearcuenta"])
-                        lblTitulo.Text = "Registro exitoso, Bienvenido " + "USUARIO";
-                    else
-                        lblTitulo.Text = "Bienvenido " + "USUARIO";
-                }
+                    lblTitulo.Text = "Bienvenido " + ((Usuario)Session["user"]).Email;
+                }               
             }
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
             Response.Redirect("Login.aspx", false); 
+        }
+
+        protected void btnPaginaNormal_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaNormal.aspx", false);
+        }
+        protected void btnPaginaAdmin_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("PaginaAdmin.aspx", false);
+
         }
     }
 }

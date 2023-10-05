@@ -16,5 +16,10 @@ namespace articulos_web
                 lblMensaje.Text = Session["error"].ToString();
             }
         }
+
+        protected void btnIniciarSesion_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx", false);
+        }
     }
 }

@@ -36,14 +36,12 @@
                                 <a class="nav-link" href="CartasDeArticulos.aspx">Grilla de Articulos</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%: (Session["isLogged"] == null || (bool)Session["isLogged"] == false) ? "Acceder" : "Mi Cuenta" %>    </a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%: (Session["user"] == null) ? "Acceder" : "Mi Cuenta" %>    </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="Login.aspx"><%: (Session["isLogged"] == null || (bool)Session["isLogged"] == false) ? "Iniciar Sesion" : "Editar Datos" %></a></li>
-                                    <li><a class="dropdown-item" href="Login.aspx?crearcuenta=true"><%: (Session["isLogged"] == null || (bool)Session["isLogged"] == false) ? "Crear una Cuenta" : "Preferencias" %></a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"><%: (Session["isLogged"] == null || (bool)Session["isLogged"] == false) ? "Algo aqui" : "Cerrar Sesion" %></a></li>
+                                    <li><a class="dropdown-item" href=<%: (Session["user"] == null) ? "Login.aspx" : "MenuLogin.aspx" %>><%: (Session["user"] == null) ? "Iniciar Sesion" : "Panel" %></a></li>
+                                    <li><a class="dropdown-item" href="Login.aspx?crearcuenta=true"><%: (Session["user"] == null) ? "Crear una Cuenta" : "Preferencias" %></a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><asp:LinkButton Text="text" runat="server" ID="lblddCuentaExtra" CssClass="dropdown-item" OnClick="lblddCuentaExtra_Click" /></li>      
                                 </ul>
                             </li>
                         </ul>

@@ -72,6 +72,8 @@
     <Content Include="Error.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MenuLogin.aspx" />
+    <Content Include="PaginaAdmin.aspx" />
+    <Content Include="PaginaNormal.aspx" />
     <Content Include="Producto.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ListaArticulos.aspx" />
@@ -114,6 +116,20 @@
     </Compile>
     <Compile Include="MenuLogin.aspx.designer.cs">
       <DependentUpon>MenuLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaAdmin.aspx.cs">
+      <DependentUpon>PaginaAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginaAdmin.aspx.designer.cs">
+      <DependentUpon>PaginaAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginaNormal.aspx.cs">
+      <DependentUpon>PaginaNormal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginaNormal.aspx.designer.cs">
+      <DependentUpon>PaginaNormal.aspx</DependentUpon>
     </Compile>
     <Compile Include="Producto.aspx.cs">
       <DependentUpon>Producto.aspx</DependentUpon>

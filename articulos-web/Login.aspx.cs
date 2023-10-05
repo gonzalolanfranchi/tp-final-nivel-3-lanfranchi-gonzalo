@@ -17,6 +17,11 @@ namespace articulos_web
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] != null)
+            {
+                Response.Redirect("MenuLogin.aspx");
+            }
+            
             if (!IsPostBack)
             {
                 if (Request.QueryString["crearcuenta"] == null)
@@ -64,18 +69,18 @@ namespace articulos_web
                 if (service.Loguear(user))
                 {
                     Session.Add("user", user);
-                    Response.Redirect("MenuLogin.aspx");
+                    Response.Redirect("MenuLogin.aspx", false);
                 }else
                 {
                     Session.Add("error", "Email o Password incorrectos.");
-                    Response.Redirect("Error.aspx");
+                    Response.Redirect("Error.aspx", false);
                 }
             }
             catch (Exception ex)
             {
 
-                Session.Add("error", ex);
-                Response.Redirect("Error.aspx");
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
 
             }
 

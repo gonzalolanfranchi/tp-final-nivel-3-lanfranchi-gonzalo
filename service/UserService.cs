@@ -22,7 +22,7 @@ namespace service
                 while (data.Reader.Read())
                 {
                     usuario.Id = (int)data.Reader["Id"];
-                    usuario.Admin = (int)(data.Reader["admin"]) == 1 ? TipoUsuario.ADMIN : TipoUsuario.NORMAL;
+                    usuario.Admin = (bool)(data.Reader["admin"]) == true ? TipoUsuario.ADMIN : TipoUsuario.NORMAL;
                     return true;
                 }
                 return false;
