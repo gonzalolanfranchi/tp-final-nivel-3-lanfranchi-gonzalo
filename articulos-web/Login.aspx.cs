@@ -24,6 +24,8 @@ namespace articulos_web
             
             if (!IsPostBack)
             {
+
+
                 if (Request.QueryString["crearcuenta"] == null)
                     Session.Add("crearcuenta", false);
                 else
@@ -68,8 +70,8 @@ namespace articulos_web
                 user = new Usuario(txtEmail.Text, txtPassword.Text, false);
                 if (service.Loguear(user))
                 {
-                    Session.Add("user", user);
-                    Response.Redirect("MenuLogin.aspx", false);
+                        Session.Add("user", user);
+                        Response.Redirect("MenuLogin.aspx", false);  
                 }else
                 {
                     Session.Add("error", "Email o Password incorrectos.");
@@ -78,7 +80,6 @@ namespace articulos_web
             }
             catch (Exception ex)
             {
-
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
 

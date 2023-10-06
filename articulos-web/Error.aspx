@@ -20,7 +20,9 @@
                     </div>
                     <div class="col-8 mt-2">
                         <%if (lblMensaje.Text == "Debes loguearte para acceder a esa página")
-                        {%>
+                        {
+                                
+                                %>
                     <asp:Button Text="Iniciar Sesion" runat="server" CssClass="btn btn-primary" ID="btnIniciarSesion" OnClick="btnIniciarSesion_Click" />
                     <%} %>
                     </div>

@@ -33,7 +33,6 @@
         <div class="col-4">
             <div class="form-floating mb-3">
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" type="email" placeholder="name@example.com"/>
-                <%--<input type="email" class="form-control" id="txtEmail" placeholder="name@example.com">--%>
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating mb-3">
