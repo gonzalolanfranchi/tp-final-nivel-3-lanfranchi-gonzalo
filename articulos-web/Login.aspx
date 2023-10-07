@@ -41,38 +41,54 @@
             </div>
 
             
-            <%if ((bool)Session["crearcuenta"])
+            <%if (Session["crearcuenta"] != null && (bool)Session["crearcuenta"])
             
                 {%>
             <div class="row">
-                <div class="form-floating mb-3 col-6">
-                    <input type="password" class="form-control" id="dtp" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
+                <div class="col-6">   
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtNombre" placeholder="nombre">
+                        <label for="txtNombre">Nombre</label>
+                    </div>
                 </div>
-                <div class="form-floating mb-3 col-6">
-                    <input type="password" class="form-control" id="floatingPasswordss" placeholder="Password">
-                    <label for="floatingPassword">Password</label>
+                <div class="col-6">   
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+                        <label for="txtApellido">Apellido</label>
+                    </div>
                 </div>
-
             </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInputt" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPasswordt" placeholder="Password">
-                <label for="floatingPassword">Password</label>
+            
+            <div class="row">
+                <div class="col-2">   
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="txtArea" value="011">
+                        <label for="txtArea">Area</label>
+                    </div>
+                </div>
+                <div class="col-4">   
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control" id="txtTelefono" placeholder="Telefono">
+                        <label for="txtTelefono">Telefono</label>
+                    </div>
+                </div>
+                <div class="col-6">   
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="dtpFechaNacimiento" placeholder="nombre">
+                        <label for="dtpFechaNacimiento">Fecha de Nacimiento </label>
+                    </div>
+                </div>
             </div>
             <%}
             %>
 
             <div class="d-flex justify-content-center">
                 <div class="text-center mt-4 mx-2">
-                    <asp:Button Text="Crear Cuenta" ID="btnCrearCuenta" runat="server" CssClass="btn btn-secondary btn-lg" OnClick="btnCrearCuenta_Click" />
+                    <asp:Button Text="" ID="btnCrearCuenta" runat="server" CssClass="btn btn-secondary btn-lg" OnClick="btnCrearCuenta_Click" />
                 </div>
 
                 <div class="text-center mt-4 mx-2">
-                    <asp:Button Text="Iniciar Sesion" ID="btnLogin" runat="server" CssClass="btn btn-primary btn-lg" OnClick="btnLogin_Click" />
+                    <asp:Button Text="" ID="btnLogin" runat="server" CssClass="btn btn-primary btn-lg" OnClick="btnLogin_Click" />
                 </div>
             </div>
 

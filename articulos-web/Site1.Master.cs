@@ -27,5 +27,23 @@ namespace articulos_web
             Session.Remove("user");
             Response.Redirect("Login.aspx", false);
         }
+
+        protected void btnCrearCuenta_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx?cc=y", false);
+        }
+
+        protected void btnAcceder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx", false);
+        }
+
+        public bool usuarioLogeado()
+        {
+            if ((Session["user"] != null))
+                return true;
+            else
+                return false;
+        }
     }
 }

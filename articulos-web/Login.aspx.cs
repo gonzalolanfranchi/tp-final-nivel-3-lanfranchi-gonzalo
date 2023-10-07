@@ -11,9 +11,7 @@ namespace articulos_web
 {
     public partial class Login : System.Web.UI.Page
     {
-        public bool usuarioLogueado { get; set; }
-        public bool crearCuenta { get; set; }
-
+        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,44 +19,73 @@ namespace articulos_web
             {
                 Response.Redirect("MenuLogin.aspx");
             }
+
+            if (true)
+            {
+
+            }
+
             
             if (!IsPostBack)
             {
-
-
-                if (Request.QueryString["crearcuenta"] == null)
-                    Session.Add("crearcuenta", false);
-                else
-                    Session.Add("crearcuenta", true);
-                if (Session["isLogged"] == null)
+                if (Request.QueryString["cc"] != null && Request.QueryString["cc"] == "y")
                 {
-                    Session.Add("isLogged", false);
+                    Session["crearcuenta"] = null;
+                    toggleCrearCuenta();
                 }
                 else
                 {
-                    Session["isLogged"] = false;
+                    Session["crearcuenta"] = null;
                 }
+
+                establecerBotones();
             }
 
+            
 
+        }
+
+        public bool quiereCrearCuenta()
+        {
+            if (Session["crearcuenta"] != null && (bool)Session["crearcuenta"])
+                return true;
+            else 
+                return false; 
+        }
+
+        public void toggleCrearCuenta()
+        {
+            if (Session["crearcuenta"] == null)
+            {
+                Session.Add("crearcuenta", true);
+            }
+            else
+            {
+                if((bool)Session["crearcuenta"])
+                    Session["crearcuenta"] = false;
+                else
+                    Session["crearcuenta"] = true;
+            }
+        }
+
+        public void establecerBotones()
+        {
+            if (!quiereCrearCuenta())
+            {
+                btnLogin.Text = "Iniciar Sesion";
+                btnCrearCuenta.Text = "Crear Cuenta";
+            }
+            else
+            {
+                btnLogin.Text = "Crear Cuenta";
+                btnCrearCuenta.Text = "Iniciar Sesion";
+            }
         }
 
         protected void btnCrearCuenta_Click(object sender, EventArgs e)
         {
-            if ((bool)Session["crearcuenta"])
-            {
-                Session["crearcuenta"] = false;
-                btnLogin.Text = "Iniciar Sesion";
-                btnCrearCuenta.Text = "Crear Cuenta";
-
-            }
-            else
-            {
-                Session["crearcuenta"] = true;
-                btnLogin.Text = "Crear Cuenta";
-                btnCrearCuenta.Text = "Iniciar Sesion";
-
-            }
+            toggleCrearCuenta();
+            establecerBotones();
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
@@ -68,14 +95,21 @@ namespace articulos_web
             try
             {
                 user = new Usuario(txtEmail.Text, txtPassword.Text, false);
-                if (service.Loguear(user))
+                if (quiereCrearCuenta())
                 {
-                        Session.Add("user", user);
-                        Response.Redirect("MenuLogin.aspx", false);  
-                }else
+                    // CREAR CUENTA
+                }
+                else
                 {
-                    Session.Add("error", "Email o Password incorrectos.");
-                    Response.Redirect("Error.aspx", false);
+                    if (service.Loguear(user))
+                    {
+                            Session.Add("user", user);
+                            Response.Redirect("MenuLogin.aspx", false);  
+                    }else
+                    {
+                        Session.Add("error", "Email o Password incorrectos.");
+                        Response.Redirect("Error.aspx", false);
+                    }
                 }
             }
             catch (Exception ex)
