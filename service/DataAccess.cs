@@ -58,6 +58,20 @@ namespace service
             }
         }
 
+        public int executeActionScalar()
+        {
+            command.Connection = connection;
+            try
+            {
+                connection.Open();
+                return int.Parse(command.ExecuteScalar().ToString());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public void setParameter(string name, object value)
         {
             command.Parameters.AddWithValue(name, value);
@@ -75,5 +89,9 @@ namespace service
             command.CommandType = System.Data.CommandType.StoredProcedure;
             command.CommandText = sp;
         }
+
+
+
+
     }
 }

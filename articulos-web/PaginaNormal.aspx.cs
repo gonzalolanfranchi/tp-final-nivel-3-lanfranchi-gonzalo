@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using service;
 
 namespace articulos_web
 {
@@ -11,11 +12,7 @@ namespace articulos_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["user"] == null)
-            {
-                Session.Add("error", "Debes loguearte para acceder a esa página");
-                Response.Redirect("Error.aspx", false);
-            }
+            
         }
     }
 }

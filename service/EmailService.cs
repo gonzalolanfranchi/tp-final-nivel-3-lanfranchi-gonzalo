@@ -49,6 +49,18 @@ namespace service
             }
         }
 
+        public void armarCorreoNuevaCuenta(string emailDestino, string contraseña)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("gonzalanfranchi@gmail.com", "Gonzalo Lanfranchi");
+            email.To.Add(emailDestino);
+            email.Subject = "Registro exitoso";
+            email.IsBodyHtml = true;
+            email.Body = "<h2>Tu usuario fue creado con éxito!<br></h2><p>Muchas gracias por registrarte en nuestra web.<br></p><p>A partir de ahora, vas a poder iniciar sesion con tus credenciales:</p><p>Email: " + emailDestino + "</p><p>Contraseña: " + contraseña + "</p><p>Nos vemos en la web!</p>";
+        }
+
+        
+
 
 
     }

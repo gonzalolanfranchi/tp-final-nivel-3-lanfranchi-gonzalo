@@ -20,12 +20,12 @@ namespace articulos_web
                 Response.Redirect("MenuLogin.aspx");
             }
 
-            if (true)
+            if (Session["error"] != null)
             {
-
+                txtMensaje.Text = Session["error"].ToString();
+                Session.Remove("error");
             }
 
-            
             if (!IsPostBack)
             {
                 if (Request.QueryString["cc"] != null && Request.QueryString["cc"] == "y")
@@ -37,10 +37,8 @@ namespace articulos_web
                 {
                     Session["crearcuenta"] = null;
                 }
-
                 establecerBotones();
             }
-
             
 
         }
@@ -98,16 +96,52 @@ namespace articulos_web
                 if (quiereCrearCuenta())
                 {
                     // CREAR CUENTA
+                    try
+                    {
+                        user.Nombre = txtNombre.Text;
+                        user.Apellido = txtApellido.Text;
+                        int id = service.CrearCuenta(user);
+
+
+                        EmailService emailService = new EmailService();
+                        emailService.armarCorreoNuevaCuenta(user.Email, user.Pass);
+                        try
+                        {
+                            emailService.enviarEmail();
+                        }
+                        catch (Exception ex)
+                        {
+                            Session.Add("error", ex.ToString());
+                            Response.Redirect("Error.aspx", false);
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Session.Add("error", ex.ToString());    
+                        Response.Redirect("Error.aspx", false);
+                    }
                 }
                 else
                 {
-                    if (service.Loguear(user))
+                    //LOGUEAR 
+                    try
                     {
+                        if (service.Loguear(user))
+                        {
                             Session.Add("user", user);
                             Response.Redirect("MenuLogin.aspx", false);  
-                    }else
+                        }else
+                        {
+                            txtMensaje.Text = "Email o Contraseña incorrectos.";
+                            //Session.Add("error", "Email o Password incorrectos.");
+                            //Response.Redirect("Error.aspx", false);
+                        }
+                    }
+                    catch (Exception ex)
                     {
-                        Session.Add("error", "Email o Password incorrectos.");
+                        Session.Add("error", ex.ToString());
                         Response.Redirect("Error.aspx", false);
                     }
                 }

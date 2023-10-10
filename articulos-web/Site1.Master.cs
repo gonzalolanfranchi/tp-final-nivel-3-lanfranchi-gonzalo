@@ -1,4 +1,6 @@
-﻿using System;
+﻿using domain;
+using service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +13,25 @@ namespace articulos_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!(Page is Login || Page is Default || Page is Detalle || Page is Contacto || Page is CartasDeArticulos))
+            {
+                if (!Security.sesionActiva(Session["user"]))
+                {
+                    Session.Add("error", "Debes iniciar sesion para acceder a esta pagina");
+                    Response.Redirect("Login.aspx", false);
+                }
+            }
+
+            if (Page is PaginaAdmin || Page is ListaArticulos)
+            {
+                if (!Security.esAdmin(Session["user"]))
+                {
+                    Session.Add("error", "Debes ser Administrador para acceder a esta pagina");
+                    Response.Redirect("Error.aspx", false);
+                }
+            }
+            
+            
             if (Session["user"] == null)
             {
                 lblddCuentaExtra.Text = "Algo Aqui";
@@ -18,13 +39,13 @@ namespace articulos_web
             else
             {
                 lblddCuentaExtra.Text = "Cerrar Sesion";
-
             }
         }
 
         protected void lblddCuentaExtra_Click(object sender, EventArgs e)
         {
             Session.Remove("user");
+            Session.Add("error", "Sesion cerrada con exito.");
             Response.Redirect("Login.aspx", false);
         }
 
@@ -38,12 +59,6 @@ namespace articulos_web
             Response.Redirect("Login.aspx", false);
         }
 
-        public bool usuarioLogeado()
-        {
-            if ((Session["user"] != null))
-                return true;
-            else
-                return false;
-        }
+        
     }
 }

@@ -75,7 +75,7 @@
     <Content Include="MenuLogin.aspx" />
     <Content Include="PaginaAdmin.aspx" />
     <Content Include="PaginaNormal.aspx" />
-    <Content Include="Producto.aspx" />
+    <Content Include="Detalle.aspx" />
     <Content Include="Global.asax" />
     <Content Include="ListaArticulos.aspx" />
     <Content Include="Models\styles.css" />
@@ -139,12 +139,12 @@
     <Compile Include="PaginaNormal.aspx.designer.cs">
       <DependentUpon>PaginaNormal.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Producto.aspx.cs">
-      <DependentUpon>Producto.aspx</DependentUpon>
+    <Compile Include="Detalle.aspx.cs">
+      <DependentUpon>Detalle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Producto.aspx.designer.cs">
-      <DependentUpon>Producto.aspx</DependentUpon>
+    <Compile Include="Detalle.aspx.designer.cs">
+      <DependentUpon>Detalle.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

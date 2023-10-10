@@ -36,5 +36,30 @@ namespace service
                 data.closeConnection();
             }
         }
+
+        public int CrearCuenta(Usuario usuario)
+        {
+            DataAccess data = new DataAccess();
+            try
+            {
+                data.setQuery("INSERT INTO USERS (email, pass, nombre, apellido, admin) OUTPUT inserted.Id VALUES (@email, @pass, ISNULL(@nombre, ''), ISNULL(@apellido, ''), 0)");
+                data.setParameter("@email", usuario.Email);
+                data.setParameter("@pass", usuario.Pass);
+                data.setParameter("@nombre", usuario.Nombre);
+                data.setParameter("@apellido", usuario.Apellido);
+                return data.executeActionScalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
+
+
+
     }
 }

@@ -47,19 +47,19 @@
             <div class="row">
                 <div class="col-6">   
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="txtNombre" placeholder="nombre">
+                        <asp:TextBox runat="server" ID="txtNombre" placeholder="nombre" CssClass="form-control"/>
                         <label for="txtNombre">Nombre</label>
                     </div>
                 </div>
                 <div class="col-6">   
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+                        <asp:TextBox runat="server" ID="txtApellido" placeholder="Apellido" CssClass="form-control"/>
                         <label for="txtApellido">Apellido</label>
                     </div>
                 </div>
             </div>
             
-            <div class="row">
+            <%--<div class="row">
                 <div class="col-2">   
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="txtArea" value="011">
@@ -78,9 +78,13 @@
                         <label for="dtpFechaNacimiento">Fecha de Nacimiento </label>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <%}
             %>
+
+            <div class="row">   
+                <asp:Label Text="" ID="txtMensaje" runat="server" CssClass="text-danger text-center" />
+            </div>
 
             <div class="d-flex justify-content-center">
                 <div class="text-center mt-4 mx-2">

@@ -39,18 +39,22 @@
                                 <a class="nav-link" href="Contacto.aspx">Contacto</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%: (!usuarioLogeado()) ? "Acceder" : "Mi Cuenta" %>    </a>
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><%: (!service.Security.sesionActiva(Session["user"])) ? "Acceder" : "Mi Cuenta" %>    </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href=<%: (!usuarioLogeado()) ? "Login.aspx" : "MenuLogin.aspx" %>><%: (!usuarioLogeado()) ? "Iniciar Sesion" : "Panel" %></a></li>
-                                    <li><a class="dropdown-item" href=<%: (!usuarioLogeado()) ? "Login.aspx?cc=y" : "Preferencias.aspx" %> ><%: (Session["user"] == null) ? "Crear una Cuenta" : "Preferencias" %></a></li>
+                                    <li><a class="dropdown-item" href=<%: (!service.Security.sesionActiva(Session["user"])) ? "Login.aspx" : "MenuLogin.aspx" %>><%: (!service.Security.sesionActiva(Session["user"])) ? "Iniciar Sesion" : "Panel" %></a></li>
+                                    <li><a class="dropdown-item" href=<%: (!service.Security.sesionActiva(Session["user"])) ? "Login.aspx?cc=y" : "Preferencias.aspx" %> ><%: (!service.Security.sesionActiva(Session["user"])) ? "Crear una Cuenta" : "Preferencias" %></a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><asp:LinkButton Text="text" runat="server" ID="lblddCuentaExtra" CssClass="dropdown-item" OnClick="lblddCuentaExtra_Click" /></li>      
                                 </ul>
                             </li>
-                            <li class="d-flex float-end">
+                            <%if (!service.Security.sesionActiva(Session["user"])){%>
+                            <li class="">
                                 <asp:Button Text="Crear Cuenta" runat="server" CssClass="btn btn-outline-primary" ID="btnCrearCuenta" OnClick="btnCrearCuenta_Click" />
                                 <asp:Button Text="Acceder" runat="server" CssClass="btn btn-success" ID="btnAcceder" OnClick="btnAcceder_Click" />
                             </li>
+                                <%}
+                                %>
+                            
                         </ul>
                     </div>
                 </div>
