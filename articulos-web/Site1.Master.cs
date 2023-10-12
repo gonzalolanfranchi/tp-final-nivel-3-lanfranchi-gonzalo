@@ -30,21 +30,11 @@ namespace articulos_web
                     Response.Redirect("Error.aspx", false);
                 }
             }
-            
-            
-            if (Session["user"] == null)
-            {
-                lblddCuentaExtra.Text = "Algo Aqui";
-            }
-            else
-            {
-                lblddCuentaExtra.Text = "Cerrar Sesion";
-            }
         }
 
-        protected void lblddCuentaExtra_Click(object sender, EventArgs e)
+        protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
-            Session.Remove("user");
+            Session.Clear();
             Session.Add("error", "Sesion cerrada con exito.");
             Response.Redirect("Login.aspx", false);
         }

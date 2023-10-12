@@ -22,7 +22,7 @@ namespace service
         public static bool esAdmin(object user)
         {
             Usuario userr = user != null ? (Usuario)user : null;
-            if (userr.Admin == TipoUsuario.ADMIN)
+            if (userr != null && userr.Admin == TipoUsuario.ADMIN)
                 return true;
             else
                 return false; 

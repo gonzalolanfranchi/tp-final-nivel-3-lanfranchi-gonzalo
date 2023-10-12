@@ -79,6 +79,7 @@
     <Content Include="Global.asax" />
     <Content Include="ListaArticulos.aspx" />
     <Content Include="Models\styles.css" />
+    <Content Include="Perfil.aspx" />
     <Content Include="scr.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -155,6 +156,13 @@
     </Compile>
     <Compile Include="ListaArticulos.aspx.designer.cs">
       <DependentUpon>ListaArticulos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site1.Master.cs">

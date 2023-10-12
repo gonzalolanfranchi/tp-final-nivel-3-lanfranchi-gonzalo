@@ -100,21 +100,15 @@ namespace articulos_web
                     {
                         user.Nombre = txtNombre.Text;
                         user.Apellido = txtApellido.Text;
-                        int id = service.CrearCuenta(user);
+                        user.Id = service.CrearCuenta(user);
+                        Session.Add("user", user);
 
 
                         EmailService emailService = new EmailService();
                         emailService.armarCorreoNuevaCuenta(user.Email, user.Pass);
-                        try
-                        {
-                            emailService.enviarEmail();
-                        }
-                        catch (Exception ex)
-                        {
-                            Session.Add("error", ex.ToString());
-                            Response.Redirect("Error.aspx", false);
-                        }
+                        emailService.enviarEmail();
 
+                        Response.Redirect("MenuLogin.aspx", false);
 
                     }
                     catch (Exception ex)
@@ -152,24 +146,6 @@ namespace articulos_web
                 Response.Redirect("Error.aspx", false);
 
             }
-
-
-
-
-            //if ((bool)Session["crearcuenta"])
-            //{
-            //    //CREAR CUENTA
-            //    Session["isLogged"] = true;
-            //    Response.Redirect("MenuLogin.aspx");
-
-            //}
-            //else
-            //{
-            //    //INICIAR SESION
-            //    Session["isLogged"] = true;
-            //    Response.Redirect("MenuLogin.aspx");
-
-            //}
         }
     }
 }

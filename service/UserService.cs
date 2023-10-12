@@ -42,7 +42,7 @@ namespace service
             DataAccess data = new DataAccess();
             try
             {
-                data.setQuery("INSERT INTO USERS (email, pass, nombre, apellido, admin) OUTPUT inserted.Id VALUES (@email, @pass, ISNULL(@nombre, ''), ISNULL(@apellido, ''), 0)");
+                data.setQuery("INSERT INTO USERS (email, pass, nombre, apellido, urlImagenPerfil, admin) OUTPUT inserted.Id VALUES (@email, @pass, ISNULL(@nombre, ''), ISNULL(@apellido, ''), '', 0)");
                 data.setParameter("@email", usuario.Email);
                 data.setParameter("@pass", usuario.Pass);
                 data.setParameter("@nombre", usuario.Nombre);
