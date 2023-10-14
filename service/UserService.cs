@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.ModelBinding;
 using domain;
 using service;
 
@@ -59,7 +60,28 @@ namespace service
             }
         }
 
-
-
+        public void modificarUsuario(Usuario user)
+        {
+            DataAccess data = new DataAccess();
+            try
+            {
+                data.setQuery("UPDATE USERS set email = @email, pass = @pass, nombre = @nombre, apellido = @apellido, urlImagenPerfil = @urlImagenPerfil Where Id = @Id");
+                data.setParameter("@email", user.Email);
+                data.setParameter("@pass", user.Pass);
+                data.setParameter("@nombre", user.Nombre);
+                data.setParameter("@apellido", user.Apellido);
+                data.setParameter("@urlImagenPerfil", user.UrlImagenPerfil);
+                data.setParameter("@Id", user.Id);
+                data.executeAction();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                data.closeConnection();
+            }
+        }
     }
 }

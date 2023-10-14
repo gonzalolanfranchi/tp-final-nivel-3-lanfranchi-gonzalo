@@ -11,7 +11,6 @@ namespace articulos_web
 {
     public partial class Perfil : System.Web.UI.Page
     {
-        public bool cambiarContraseña = false;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -23,28 +22,87 @@ namespace articulos_web
                     txtPassword.Text = user.Pass;
                     txtNombre.Text = user.Nombre;
                     txtApellido.Text = user.Apellido;
-                    imgPerfilUrl.Text = user.UrlImagenPerfil;
+                    //txtPerfilUrl. = user.UrlImagenPerfil;
 
                     if (!(user.UrlImagenPerfil == null || user.UrlImagenPerfil == ""))
                     {
                         imgPerfilMuestra.ImageUrl = user.UrlImagenPerfil;
                     }
-                    else
-                    {
-                        imgPerfilMuestra.ImageUrl = "https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg";
-                    }
-                }
-
-                if (cambiarContraseña)
-                {
-                    //que me seleccione para escribir la casilla txtPassword2
                 }
             }
         }
 
         protected void txtPassword_TextChanged(object sender, EventArgs e)
         {
-            cambiarContraseña = true;
+            Session.Add("cambiarContraseña", true);
+            Page.SetFocus(txtPassword2);
+        }
+
+        protected void txtPassword2_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPassword2.Text != txtPassword.Text)
+            {
+                if(!(lblErrores.Text.Contains("Las contraseñas no coinciden")))
+                    lblErrores.Text += "Las contraseñas no coinciden";
+                Page.SetFocus(txtPassword);
+            }
+            else
+            {
+                lblErrores.Text = lblErrores.Text.Replace("Las contraseñas no coinciden", "");
+                Page.SetFocus(txtNombre);
+            }
+        }
+
+        protected void btnGuardarCambios_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (validarDatos())
+                {
+                    Usuario user = (Usuario)Session["user"];
+                    EmailService email = new EmailService();
+                    UserService userService = new UserService();
+
+
+                    string ruta = Server.MapPath("./Images/Perfil/");
+                    txtPerfilUrl.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
+                    user.UrlImagenPerfil = "perfil-" + user.Id + ".jpg";
+
+                    user.Nombre = txtNombre.Text;
+                    user.Apellido = txtApellido.Text;
+
+                    string emailViejo = user.Email;
+                    user.Email = txtEmail.Text;
+
+                    if (Session["cambiarContraseña"] != null && (bool)Session["cambiarContraseña"])
+                        user.Pass = txtPassword2.Text;
+
+                    userService.modificarUsuario(user);
+
+                    email.armarCorreoModificarCuenta(emailViejo, user.Email);
+                    email.enviarEmail();
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx");
+            }
+        }
+
+        private bool validarDatos()
+        {
+            if (Session["cambiarContraseña"] != null && (bool)Session["cambiarContraseña"])
+            {
+                if (txtPassword.Text != txtPassword2.Text)
+                {
+                    if(!(lblErrores.Text.Contains("Las contraseñas no coinciden")))
+                        lblErrores.Text += "Las contraseñas no coinciden";
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

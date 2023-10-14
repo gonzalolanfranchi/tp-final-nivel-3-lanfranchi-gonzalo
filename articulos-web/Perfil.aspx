@@ -20,14 +20,14 @@
                         <asp:TextBox type="password" class="form-control" ID="txtPassword" placeholder="Contraseña" runat="server" OnTextChanged="txtPassword_TextChanged" AutoPostBack="true" />
                         <label for="txtPassword">Contraseña</label>
                     </div>
-                    <%if (cambiarContraseña)
+                    <%if (Session["cambiarContraseña"] != null && (bool)Session["cambiarContraseña"] == true)
                         {%>
                     <div class="form-floating mb-3">
-                        <asp:TextBox type="password" class="form-control" ID="txtPassword2" placeholder="Confirmar Contraseña" runat="server"/>
+                        <asp:TextBox type="password" class="form-control" ID="txtPassword2" placeholder="Confirmar Contraseña" runat="server" OnTextChanged="txtPassword2_TextChanged" AutoPostBack="true"/>
                         <label for="txtPassword2">Confirmar Contraseña</label>
                     </div>
 
-                        <%} %>
+                    <%} %>
                     <div class="form-floating mb-3">
                         <asp:TextBox runat="server" ID="txtNombre" placeholder="nombre" CssClass="form-control" />
                         <label for="txtNombre">Nombre</label>
@@ -37,15 +37,20 @@
                         <label for="txtApellido">Apellido</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <asp:TextBox runat="server" ID="imgPerfilUrl" CssClass="form-control" type="file" />
+                        <input type="file" name="txtPerfilUrl" runat="server" id="txtPerfilUrl" class="form-control" />
+                        <%--<asp:TextBox runat="server" ID="imgPerfilUrl" CssClass="form-control" type="file"/>--%>
                         <label for="imgPerfilUrl">Imagen de Perfil</label>
                     </div>
+
+                    <div class="row">
+                        <asp:Label Text="" runat="server" ID="lblErrores" CssClass="text-danger mb-3"/>
+                    </div>
                     
-                        <asp:Button Text="Guardar Cambios" runat="server" CssClass="btn btn-lg btn-success"/>
-                    
+                    <asp:Button Text="Guardar Cambios" runat="server" CssClass="btn btn-lg btn-success" ID="btnGuardarCambios" OnClick="btnGuardarCambios_Click" />
+
                 </div>
                 <div class="col-6">
-                    <asp:Image runat="server" ID="imgPerfilMuestra" CssClass="img-fluid rounded-4" />
+                    <asp:Image runat="server" ID="imgPerfilMuestra" CssClass="img-fluid rounded-4" ImageUrl="https://static.vecteezy.com/system/resources/previews/004/141/669/non_2x/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg" />
                 </div>
             </div>
         </div>

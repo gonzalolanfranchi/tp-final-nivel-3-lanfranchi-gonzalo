@@ -6,6 +6,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using domain;
 using service;
 
 namespace service
@@ -59,9 +60,15 @@ namespace service
             email.Body = "<h2>Tu usuario fue creado con éxito!<br></h2><p>Muchas gracias por registrarte en nuestra web.<br></p><p>A partir de ahora, vas a poder iniciar sesion con tus credenciales:</p><p>Email: " + emailDestino + "</p><p>Contraseña: " + contraseña + "</p><p>Nos vemos en la web!</p>";
         }
 
-        
-
-
-
+        public void armarCorreoModificarCuenta(string emailDestino, string emailNuevo)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("gonzalanfranchi@gmail.com", "Gonzalo Lanfranchi");
+            email.To.Add(emailDestino);
+            email.CC.Add(emailNuevo);
+            email.Subject = "Modificacion exitosa!";
+            email.IsBodyHtml = true;
+            email.Body = "<h2>Tu usuario fue modificado con éxito</h2><p>Modificaste tus datos mediante nuestra web.<br></p><p>Si no fuiste vos, ponete en contacto con el soporte inmediatamente.<br></p><p>Saludos!</p>";
+        }
     }
 }
