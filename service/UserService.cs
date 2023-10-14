@@ -16,7 +16,7 @@ namespace service
 			DataAccess data = new DataAccess();
 			try
 			{
-				data.setQuery("Select Id, admin FROM USERS Where email = @email AND pass = @pass");
+				data.setQuery("Select Id, nombre, apellido, urlImagenPerfil, admin FROM USERS Where email = @email AND pass = @pass");
 				data.setParameter("@email", usuario.Email);
                 data.setParameter("@pass", usuario.Pass);
                 data.executeRead();
@@ -24,6 +24,9 @@ namespace service
                 {
                     usuario.Id = (int)data.Reader["Id"];
                     usuario.Admin = (bool)(data.Reader["admin"]) == true ? TipoUsuario.ADMIN : TipoUsuario.NORMAL;
+                    usuario.Nombre = (string)data.Reader["nombre"];
+                    usuario.Apellido = (string)data.Reader["apellido"];
+                    usuario.UrlImagenPerfil = (string)data.Reader["urlImagenPerfil"];
                     return true;
                 }
                 return false;

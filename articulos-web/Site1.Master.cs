@@ -30,6 +30,14 @@ namespace articulos_web
                     Response.Redirect("Error.aspx", false);
                 }
             }
+
+            if (Security.sesionActiva(Session["user"]))
+            {
+                if(((Usuario)Session["user"]).UrlImagenPerfil != "")
+                    imgPerfil.ImageUrl = "~/Images/Perfil/" + ((Usuario)Session["user"]).UrlImagenPerfil;
+            }
+
+
         }
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)

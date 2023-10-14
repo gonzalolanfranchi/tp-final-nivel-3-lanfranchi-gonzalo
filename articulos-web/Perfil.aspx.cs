@@ -24,9 +24,9 @@ namespace articulos_web
                     txtApellido.Text = user.Apellido;
                     //txtPerfilUrl. = user.UrlImagenPerfil;
 
-                    if (!(user.UrlImagenPerfil == null || user.UrlImagenPerfil == ""))
+                    if (user.UrlImagenPerfil != "")
                     {
-                        imgPerfilMuestra.ImageUrl = user.UrlImagenPerfil;
+                        imgPerfilMuestra.ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
                     }
                 }
             }
@@ -65,8 +65,12 @@ namespace articulos_web
 
 
                     string ruta = Server.MapPath("./Images/Perfil/");
-                    txtPerfilUrl.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
-                    user.UrlImagenPerfil = "perfil-" + user.Id + ".jpg";
+
+                    if (txtPerfilUrl.PostedFile.FileName != "") 
+                    {
+                        txtPerfilUrl.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
+                        user.UrlImagenPerfil = "perfil-" + user.Id + ".jpg";
+                    }
 
                     user.Nombre = txtNombre.Text;
                     user.Apellido = txtApellido.Text;
@@ -81,6 +85,11 @@ namespace articulos_web
 
                     email.armarCorreoModificarCuenta(emailViejo, user.Email);
                     email.enviarEmail();
+
+                    lblErrores.Text = "Modificado Exitosamente!";
+
+                    //imgPerfilMuestra.ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
+                    //((Image)Master.FindControl("imgPerfil")).ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
                 }
             }
             catch (Exception ex)
