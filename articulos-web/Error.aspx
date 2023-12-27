@@ -9,9 +9,9 @@
             <div class="col-2">
             </div>
             <div class="col-8">
-                <h1>Pagina de Errores</h1>
+                <asp:Label ID="lblTitulo" Text="Pagina de Errores" runat="server" CssClass="h1"/>
                 <div class="row">
-                    <asp:Label Text="No hay ningun problema." ID="lblMensaje" runat="server" />
+                    <asp:Label Text="No hay ningun problema." ID="lblMensaje" runat="server" CssClass="mt-2" />
 
                 </div>
                 <div class="row">

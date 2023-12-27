@@ -16,6 +16,7 @@ namespace articulos_web
             if (Session["error"] != null)
             {
                 lblMensaje.Text = Session["error"].ToString();
+                lblTitulo.Text = "Error.";
             }
         }
 

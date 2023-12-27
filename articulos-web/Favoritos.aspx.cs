@@ -1,40 +1,54 @@
-﻿using service;
+﻿using domain;
+using service;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using domain;
-using System.Text.RegularExpressions;
-using System.Globalization;
 
 namespace articulos_web
 {
-    public partial class CartasDeArticulos : System.Web.UI.Page
+    public partial class Favoritos : System.Web.UI.Page
     {
         public List<Producto> ListaProducto { get; set; }
+        public List<int> ListaFavoritos { get; set; }
         public List<Producto> ListaFiltrada { get; set; }
         public CultureInfo ci = new CultureInfo("es-AR");
         public bool FiltroAvanzado { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["user"] == null)
+            {
+                Session.Add("error", "Debes iniciar sesion para acceder a esta pagina");
+                Response.Redirect("Login.aspx", false);
+                return;
+            }
+            
+            
+            
+            
             FiltroAvanzado = checkFiltroAvanzado.Checked;
             ProductoService service = new ProductoService();
 
-            ////repetidor
+            //repetidor
             //repRepetidor.DataSource = ListaFiltrada;
             //repRepetidor.DataBind();
 
 
-            //repRepetidor.DataSource = ListaFiltrada;
-            //repRepetidor.DataBind();
 
             if (!IsPostBack)
             {
+                FavoritoService favService = new FavoritoService();
+                ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
+
+                ListaProducto = service.toList();
+
+                ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
                 //repetidor
-                ListaFiltrada = service.toList();
                 repRepetidor.DataSource = ListaFiltrada;
                 repRepetidor.DataBind();
                 if (Session["search"] == null)
@@ -44,41 +58,15 @@ namespace articulos_web
                     ddlCriterio.Items.Add("Que Empiece Por");
                     ddlCriterio.Items.Add("Que Termine Por");
                 }
-                else
-                {
-                    txtFiltro.Text = Session["search"].ToString();
-                    filtrarVuelta(Session["search"].ToString());
-                }
             }
 
-            
+
 
 
 
         }
 
-        public void filtrarVuelta(string filtro)
-        {
-            if (validarFiltro())
-            {
-                List<Producto> listaFiltrada = new List<Producto>();
-                if (!checkFiltroAvanzado.Checked)
-                {
-                    ProductoService service = new ProductoService();
-                    List<Producto> lista = service.toList();
-                    ListaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(Session["search"].ToString().ToUpper()));
-                }
-                else
-                {
-                    ProductoService service = new ProductoService();
-                    ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), Session["search"].ToString(), ddlImagen.SelectedItem.ToString());
-                }
-                Session.Add("filtro", ListaFiltrada);
-                txtFiltro.Text = Session["search"].ToString();
-                Session.Remove("search");
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
-            }
-        }
+        
 
         protected void checkFiltroAvanzado_CheckedChanged(object sender, EventArgs e)
         {
@@ -90,7 +78,12 @@ namespace articulos_web
             if (txtFiltro.Text == "")
             {
                 ProductoService service = new ProductoService();
-                ListaFiltrada = service.toList();
+                ListaFiltrada = service.toListFavs(((Usuario)Session["user"]).Id);
+
+
+
+
+
                 repRepetidor.DataSource = ListaFiltrada;
                 repRepetidor.DataBind();
             }
@@ -105,10 +98,11 @@ namespace articulos_web
             {
                 if (checkFiltroAvanzado.Checked)
                 {
+                    
+                    
                     ProductoService service = new ProductoService();
                     ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
-                    //dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
-                    //dgvArticulos.DataBind();
+                    
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
                     return;
                 }
@@ -122,7 +116,17 @@ namespace articulos_web
                 {
                     ProductoService service = new ProductoService();
                     ListaProducto = service.toList();
-                    ListaFiltrada = ListaProducto.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+
+
+                    FavoritoService favService = new FavoritoService();
+                    ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
+
+
+                    ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
+                    //repetidor
+                    repRepetidor.DataSource = ListaFiltrada;
+
+                    ListaFiltrada = ListaFiltrada.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
                     repRepetidor.DataSource = ListaFiltrada;
                     repRepetidor.DataBind();
                 }
@@ -178,9 +182,9 @@ namespace articulos_web
         public string urlFav(int id)
         {
             if (Session["favs"] == null || !((List<int>)Session["favs"]).Contains(id))
-                return ResolveUrl("~/Images/favorito.png");     
+                return ResolveUrl("~/Images/favorito.png");
             else
-                return ResolveUrl("~/Images/favoritofull.png");  
+                return ResolveUrl("~/Images/favoritofull.png");
 
         }
 
@@ -221,7 +225,6 @@ namespace articulos_web
                     Session.Add("favs", favservice.toList(((Usuario)Session["user"]).Id));
                     //repetidor
                     filtrarTexto(txtFiltro.Text);
-
                     repRepetidor.DataSource = ListaFiltrada;
                     repRepetidor.DataBind();
                 }

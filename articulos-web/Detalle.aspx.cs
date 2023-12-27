@@ -34,6 +34,8 @@ namespace articulos_web
                 if (Request.UrlReferrer != null)
                 {
                     ViewState["PreviousPage"] = Request.UrlReferrer.ToString();
+                    string urlddvgo = Request.UrlReferrer.ToString();
+                    Session.Add("ddvgo", urlddvgo);
                 }
                 try
                 {
@@ -107,10 +109,10 @@ namespace articulos_web
 
         protected void btnVolver_Click(object sender, EventArgs e)
         {
-            if (ViewState["PreviousPage"] != null)
+            if (Session["ddvgo"] != null)
             {
-                string previousPage = ViewState["PreviousPage"].ToString();
-                Response.Redirect(previousPage);
+                //string previousPage = ViewState["PreviousPage"].ToString();
+                Response.Redirect((string)Session["ddvgo"]);
             }
             else
             {

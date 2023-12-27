@@ -95,7 +95,7 @@
     </div>
     <div class="row d-flex justify-content-center mt-3">
         <div class="col-10">
-            <a href="Producto.aspx" class="btn btn-primary">Crear Producto</a>
+            <a href="Detalle.aspx" class="btn btn-primary">Crear Producto</a>
 
         </div>
 

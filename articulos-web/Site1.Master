@@ -30,12 +30,35 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="Default.aspx">Inicio</a>
                             </li>
+
+                            <%if (service.Security.sesionActiva(Session["user"]))
+                                {
+                                    if (((domain.Usuario)Session["user"]).Admin == domain.TipoUsuario.ADMIN)
+                                    {%>
                             <li class="nav-item">
-                                <a class="nav-link" href="ListaArticulos.aspx">Lista de Articulos</a>
+                                <a class="nav-link" href="ListaArticulos.aspx">Lista</a>
                             </li>
+                            <%}
+                                } %>
+
+
                             <li class="nav-item">
-                                <a class="nav-link" href="CartasDeArticulos.aspx">Grilla de Articulos</a>
+                                <a class="nav-link" href="CartasDeArticulos.aspx">Productos</a>
                             </li>
+
+                            
+
+                            
+                            <%if (service.Security.sesionActiva(Session["user"]))
+                                {%>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
+                            </li>
+                            <%} %>
+
+
+                            
                             <li class="nav-item">
                                 <a class="nav-link" href="Contacto.aspx">Contacto</a>
                             </li>
@@ -68,8 +91,7 @@
                                 <asp:LinkButton Text="Cerrar Sesion" runat="server" ID="LinkButton1" CssClass="dropdown-item" OnClick="btnCerrarSesion_Click" />
                             </div>
                         </div>
-                        <%}
-                        %>
+                        <%}%>
                     </div>
                 </div>
             </nav>

@@ -55,6 +55,26 @@ namespace service
             }
         }
 
+        public List<Producto> toListFavs(int userid) 
+        {
+            List<Producto> list = new List<Producto>();
+            List<int> favlist = new List<int>();
+
+            list = toList();
+
+            FavoritoService favoritoService = new FavoritoService();
+
+            favlist = favoritoService.toList(userid);
+
+            list = list.Where(p => favlist.Contains(p.Id)).ToList();
+
+            return list;
+        }
+
+
+
+
+
         public List<Producto> toListWithSP()
         {
             List<Producto> list = new List<Producto>();

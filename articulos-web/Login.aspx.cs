@@ -128,7 +128,7 @@ namespace articulos_web
 
                             //CARGAR FAVORITOS A LA SESION
                             FavoritoService favservice = new FavoritoService();
-                            Session.Add("favs", favservice.toList(user));
+                            Session.Add("favs", favservice.toList(user.Id));
 
 
                             Response.Redirect("Default.aspx", false);  

@@ -10,13 +10,13 @@ namespace service
 {
     public class FavoritoService
     {
-        public List<int> toList(Usuario user)
+        public List<int> toList(int userid)
         {
             List<int> list = new List<int>();
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setQuery("Select IdArticulo From FAVORITOS WHERE IdUser = " + user.Id);
+                datos.setQuery("Select IdArticulo From FAVORITOS WHERE IdUser = " + userid);
                 datos.executeRead();
                 while (datos.Reader.Read())
                 {
@@ -24,9 +24,9 @@ namespace service
                 }
                 return list;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw ;
             }
             finally
             {

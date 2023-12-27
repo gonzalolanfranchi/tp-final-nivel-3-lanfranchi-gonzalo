@@ -1,4 +1,4 @@
-﻿<%@ Page EnableEventValidation="true" Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="CartasDeArticulos.aspx.cs" Inherits="articulos_web.CartasDeArticulos" %>
+﻿<%@ Page EnableEventValidation="true" Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="articulos_web.Favoritos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -8,7 +8,7 @@
     </h1>
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel runat="server">
-        
+
         <ContentTemplate>
             <div class="container">
                 <div class="row ">
@@ -76,8 +76,8 @@
                                         <div class="d-flex justify-content-between mx-3" style="height: 40px;">
                                             <p class="card-text text-success fs-3"><%# string.Format(ci, "{0:C0}", Eval("Precio")) %></p>
 
-                                            <asp:ImageButton OnClick="AlternarFavorito_Click" ID="imgAgregarFavorito" AutoPostBack="true" ImageUrl='<%#urlFav((int)Eval("Id")) %>' runat="server" CommandArgument='<%#Eval("Id")%>' style="height: 30px; width: 30px; " />
-                                            
+                                            <asp:ImageButton OnClick="AlternarFavorito_Click" ID="imgAgregarFavorito" AutoPostBack="true" ImageUrl='<%#urlFav((int)Eval("Id")) %>' runat="server" CommandArgument='<%#Eval("Id")%>' Style="height: 30px; width: 30px;" />
+
 
                                             <a href="Detalle.aspx?id=<%#Eval("Id") %>" class=" btn btn-primary ">Ver</a>
                                         </div>
@@ -86,6 +86,18 @@
                             </div>
                         </ItemTemplate>
                     </asp:Repeater>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

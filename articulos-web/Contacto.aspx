@@ -3,17 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <div class="row">
         <div class="col-4">
         </div>
-
         <div class="col-4">
-
-            <div class="text-center text-white mb-5">
+            <div class="text-center mb-5">
                 <asp:Label Text="Contactanos" runat="server" CssClass="h1 " />
             </div>
-
             <div class="form-floating mb-3">
                 <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" type="email" placeholder="name@example.com" />
                 <label for="floatingInput">Email address</label>
