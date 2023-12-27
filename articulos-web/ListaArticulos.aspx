@@ -18,7 +18,7 @@
                     <div class="row">
                         <asp:Label Text="Filtrar" runat="server" />
                         <div class="col-6 d-block">
-                            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="false"  CssClass="form-control" />
+                            <asp:TextBox runat="server" ID="txtFiltro" AutoPostBack="false"  CssClass="form-control" onkeydown="detectarEnter(event)"/>
                         </div>
                         <div class="col-2 d-block">
                             <asp:CheckBox Text="Filtro Avanzado" ID="checkFiltroAvanzado" runat="server" OnCheckedChanged="checkFiltroAvanzado_CheckedChanged" AutoPostBack="true" CssClass="" />
@@ -112,6 +112,15 @@
                 if (filterBox.value) {
                     filterBox.selectionStart = filterBox.selectionEnd = filterBox.value.length;
                 }
+            }
+        }
+        function detectarEnter(e) {
+            // Verificar si la tecla presionada es Enter
+            if (e.keyCode === 13) {
+                // Llamar al evento click del botón
+                document.getElementById('<%= btnFiltrar.ClientID %>').click();
+                // Evitar que se realice la acción predeterminada del Enter en el TextBox
+                e.preventDefault();
             }
         }
     </script>

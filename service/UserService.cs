@@ -24,9 +24,12 @@ namespace service
                 {
                     usuario.Id = (int)data.Reader["Id"];
                     usuario.Admin = (bool)(data.Reader["admin"]) == true ? TipoUsuario.ADMIN : TipoUsuario.NORMAL;
-                    usuario.Nombre = (string)data.Reader["nombre"];
-                    usuario.Apellido = (string)data.Reader["apellido"];
-                    usuario.UrlImagenPerfil = (string)data.Reader["urlImagenPerfil"];
+                    if(data.Reader["nombre"] != DBNull.Value)
+                        usuario.Nombre = (string)data.Reader["nombre"];
+                    if (data.Reader["apellido"] != DBNull.Value)
+                        usuario.Apellido = (string)data.Reader["apellido"];
+                    if(data.Reader["urlImagenPerfil"] != DBNull.Value)
+                        usuario.UrlImagenPerfil = (string)data.Reader["urlImagenPerfil"];
                     return true;
                 }
                 return false;

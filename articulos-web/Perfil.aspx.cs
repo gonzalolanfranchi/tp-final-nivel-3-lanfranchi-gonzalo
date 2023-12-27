@@ -88,6 +88,8 @@ namespace articulos_web
 
                     lblErrores.Text = "Modificado Exitosamente!";
 
+
+
                     //imgPerfilMuestra.ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
                     //((Image)Master.FindControl("imgPerfil")).ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
                 }

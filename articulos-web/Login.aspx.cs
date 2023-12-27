@@ -125,7 +125,13 @@ namespace articulos_web
                         if (service.Loguear(user))
                         {
                             Session.Add("user", user);
-                            Response.Redirect("MenuLogin.aspx", false);  
+
+                            //CARGAR FAVORITOS A LA SESION
+                            FavoritoService favservice = new FavoritoService();
+                            Session.Add("favs", favservice.toList(user));
+
+
+                            Response.Redirect("Default.aspx", false);  
                         }else
                         {
                             txtMensaje.Text = "Email o Contraseña incorrectos.";

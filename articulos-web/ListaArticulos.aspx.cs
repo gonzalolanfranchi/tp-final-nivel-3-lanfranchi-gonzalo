@@ -13,9 +13,11 @@ namespace articulos_web
 {
     public partial class ListaArticulos : System.Web.UI.Page
     {
-        public CultureInfo ci = new CultureInfo("es-AR");
+        
         public bool FiltroAvanzado { get; set; }
         public string error { get; set; }
+        public List<Producto> ListaProducto { get; set; }
+        public List<Producto> ListaFiltrada { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             FiltroAvanzado = checkFiltroAvanzado.Checked;
@@ -43,52 +45,63 @@ namespace articulos_web
         protected void dgvArticulos_SelectionIndexChanged(object sender, EventArgs e)
         {
             string id = dgvArticulos.SelectedDataKey.Value.ToString();
-            Response.Redirect("Producto.aspx?id=" + id);
+            Response.Redirect("Detalle.aspx?id=" + id);
         }
 
         protected void dgvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
+            dgvArticulos.DataSource = Session["productos"];
             dgvArticulos.PageIndex = e.NewPageIndex;
             dgvArticulos.DataBind();
         }
 
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
-            filtrarTexto(txtFiltro.Text);   
+            if (txtFiltro.Text == "")
+            {
+                ProductoService service = new ProductoService();
+                dgvArticulos.DataSource = service.toList();
+                dgvArticulos.DataBind();
+            }
+            else
+            {
+                filtrarTexto(txtFiltro.Text);
+            }
+
+
         }
 
         public void filtrarTexto(string filtro)
         {
-            if (txtFiltro.Text == "")
+
+            if (Session["search"] != null)
             {
-                if (Session["search"] != null)
+                if (checkFiltroAvanzado.Checked)
                 {
-                    if (checkFiltroAvanzado.Checked)
-                    {
-                        ProductoService service = new ProductoService();
-                        dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
-                        dgvArticulos.DataBind();
-                        ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
-                        return;
-                    }
+                    ProductoService service = new ProductoService();
+                    dgvArticulos.DataSource = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
+                    dgvArticulos.DataBind();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                    return;
                 }
             }
 
+
             if (validarFiltro())
             {
-                List<Producto> listaFiltrada = new List<Producto>();
+               
                 if (!checkFiltroAvanzado.Checked)
                 {
                     List<Producto> lista = (List<Producto>)Session["productos"];
-                    listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                    ListaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
                 }
                 else
                 {
                     ProductoService service = new ProductoService();
-                    listaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
+                    ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
                 }
-                dgvArticulos.DataSource = listaFiltrada;
-                Session.Add("filtro", listaFiltrada);
+                dgvArticulos.DataSource = ListaFiltrada;
+                Session.Add("filtro", ListaFiltrada);
                 Session.Add("search", txtFiltro.Text);
                 dgvArticulos.DataBind();
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
@@ -109,7 +122,7 @@ namespace articulos_web
                 else
                 {
                     ProductoService service = new ProductoService();
-                    listaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), Session["search"].ToString(), ddlImagen.SelectedItem.ToString());                    
+                    listaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), Session["search"].ToString(), ddlImagen.SelectedItem.ToString());
                 }
                 dgvArticulos.DataSource = listaFiltrada;
                 Session.Add("filtro", listaFiltrada);
@@ -122,12 +135,15 @@ namespace articulos_web
 
         private bool validarFiltro()
         {
-            if (ddlCampo.SelectedItem.ToString() == "Precio")
+            if (checkFiltroAvanzado.Checked)
             {
-                if (Regex.IsMatch(txtFiltro.Text, @"[a-zA-Z]"))
+                if (ddlCampo.SelectedItem.ToString() == "Precio")
                 {
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('El texto ingresado contiene letras. Por favor, ingrese solo numeros para filtrar por Precio. ');", true);
-                    return false;
+                    if (Regex.IsMatch(txtFiltro.Text, @"[a-zA-Z]"))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('El texto ingresado contiene letras. Por favor, ingrese solo numeros para filtrar por Precio. ');", true);
+                        return false;
+                    }
                 }
             }
             return true;

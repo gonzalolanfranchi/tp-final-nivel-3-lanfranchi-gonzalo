@@ -13,7 +13,7 @@ namespace articulos_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(Page is Login || Page is Default || Page is Detalle || Page is Contacto || Page is CartasDeArticulos))
+            if (!(Page is Login || Page is Default || Page is Detalle || Page is Contacto || Page is CartasDeArticulos || Page is Error))
             {
                 if (!Security.sesionActiva(Session["user"]))
                 {
@@ -33,7 +33,7 @@ namespace articulos_web
 
             if (Security.sesionActiva(Session["user"]))
             {
-                if(((Usuario)Session["user"]).UrlImagenPerfil != "")
+                if (((Usuario)Session["user"]).UrlImagenPerfil != "")
                     imgPerfil.ImageUrl = "~/Images/Perfil/" + ((Usuario)Session["user"]).UrlImagenPerfil;
             }
 
@@ -57,6 +57,6 @@ namespace articulos_web
             Response.Redirect("Login.aspx", false);
         }
 
-        
+
     }
 }

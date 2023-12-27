@@ -79,6 +79,9 @@
                         <asp:Button Text="Volver" runat="server" ID="btnVolver" CssClass="btn btn-secondary" OnClick="btnVolver_Click" />
                     </div>
                     <div class="col d-flex justify-content-end">
+
+                        <%if (Session["user"] != null && ((domain.Usuario)Session["user"]).Admin == domain.TipoUsuario.ADMIN)
+                            {%>
                         <%
                             if ((bool)Session["modificar"] || Request.QueryString["id"] == null)
                             {
@@ -97,6 +100,14 @@
                             <asp:Button Text="Eliminar" runat="server" ID="btnEliminar" CssClass="btn btn-danger" />
                         </div>
                         <%}%>
+
+                            <%} %>
+
+
+
+
+
+
 
 
                     </div>

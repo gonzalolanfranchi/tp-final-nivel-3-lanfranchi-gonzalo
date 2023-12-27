@@ -114,8 +114,10 @@ namespace articulos_web
             }
             else
             {
-                // Si no hay una página anterior, redirige al usuario a una página predeterminada.
-                Response.Redirect("~/Default.aspx");
+                if (Session["user"] != null && ((domain.Usuario)Session["user"]).Admin == domain.TipoUsuario.ADMIN)
+                    Response.Redirect("ListaArticulos.aspx");
+                else
+                    Response.Redirect("CartasDeArticulos.aspx");
             }
         }
 
@@ -142,7 +144,8 @@ namespace articulos_web
                 }
                 else
                     service.agregar(prod);
-                Response.Redirect("ListaArticulos.aspx" + "search=" + (Session["search"] != null ? Session["search"].ToString() : ""), false);
+                //Response.Redirect("ListaArticulos.aspx" + "?search=" + (Session["search"] != null ? Session["search"].ToString() : ""), false);
+                Response.Redirect("Detalle.aspx?id=" + prod.Id);
             }
             catch (Exception ex)
             {

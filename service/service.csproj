@@ -45,6 +45,7 @@
     <Compile Include="CategoriaService.cs" />
     <Compile Include="DataAccess.cs" />
     <Compile Include="EmailService.cs" />
+    <Compile Include="FavoritoService.cs" />
     <Compile Include="MarcaService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
