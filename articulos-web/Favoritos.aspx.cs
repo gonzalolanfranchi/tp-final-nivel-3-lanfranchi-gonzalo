@@ -21,52 +21,41 @@ namespace articulos_web
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["user"] == null)
+            try
             {
-                Session.Add("error", "Debes iniciar sesion para acceder a esta pagina");
-                Response.Redirect("Login.aspx", false);
-                return;
-            }
-            
-            
-            
-            
-            FiltroAvanzado = checkFiltroAvanzado.Checked;
-            ProductoService service = new ProductoService();
-
-            //repetidor
-            //repRepetidor.DataSource = ListaFiltrada;
-            //repRepetidor.DataBind();
-
-
-
-            if (!IsPostBack)
-            {
-                FavoritoService favService = new FavoritoService();
-                ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
-
-                ListaProducto = service.toList();
-
-                ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
-                //repetidor
-                repRepetidor.DataSource = ListaFiltrada;
-                repRepetidor.DataBind();
-                if (Session["search"] == null)
+                if (Session["user"] == null)
                 {
-                    FiltroAvanzado = false;
-                    ddlCriterio.Items.Add("Que Contenga");
-                    ddlCriterio.Items.Add("Que Empiece Por");
-                    ddlCriterio.Items.Add("Que Termine Por");
+                    Session.Add("error", "Debes iniciar sesion para acceder a esta pagina");
+                    Response.Redirect("Login.aspx", false);
+                    return;
+                }
+                FiltroAvanzado = checkFiltroAvanzado.Checked;
+                ProductoService service = new ProductoService();
+
+                if (!IsPostBack)
+                {
+                    FavoritoService favService = new FavoritoService();
+                    ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
+                    ListaProducto = service.toList();
+                    ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
+                    //repetidor
+                    repRepetidor.DataSource = ListaFiltrada;
+                    repRepetidor.DataBind();
+                    if (Session["search"] == null)
+                    {
+                        FiltroAvanzado = false;
+                        ddlCriterio.Items.Add("Que Contenga");
+                        ddlCriterio.Items.Add("Que Empiece Por");
+                        ddlCriterio.Items.Add("Que Termine Por");
+                    }
                 }
             }
-
-
-
-
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
         }
-
-        
 
         protected void checkFiltroAvanzado_CheckedChanged(object sender, EventArgs e)
         {
@@ -75,76 +64,76 @@ namespace articulos_web
 
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
-            if (txtFiltro.Text == "")
+            try
             {
-                ProductoService service = new ProductoService();
-                ListaFiltrada = service.toListFavs(((Usuario)Session["user"]).Id);
-
-
-
-
-
-                repRepetidor.DataSource = ListaFiltrada;
-                repRepetidor.DataBind();
-            }
-            else
-                filtrarTexto(txtFiltro.Text);
-        }
-
-        public void filtrarTexto(string filtro)
-        {
-
-            if (Session["search"] != null)
-            {
-                if (checkFiltroAvanzado.Checked)
-                {
-                    
-                    
-                    ProductoService service = new ProductoService();
-                    ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
-                    
-                    ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
-                    return;
-                }
-            }
-
-
-            if (validarFiltro())
-            {
-                //List<Producto> listaFiltrada = new List<Producto>();
-                if (!checkFiltroAvanzado.Checked)
+                if (txtFiltro.Text == "")
                 {
                     ProductoService service = new ProductoService();
-                    ListaProducto = service.toList();
-
-
-                    FavoritoService favService = new FavoritoService();
-                    ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
-
-
-                    ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
-                    //repetidor
-                    repRepetidor.DataSource = ListaFiltrada;
-
-                    ListaFiltrada = ListaFiltrada.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                    ListaFiltrada = service.toListFavs(((Usuario)Session["user"]).Id);
                     repRepetidor.DataSource = ListaFiltrada;
                     repRepetidor.DataBind();
                 }
                 else
-                {
-                    ProductoService service = new ProductoService();
-                    ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
-                    repRepetidor.DataSource = ListaFiltrada;
-                    repRepetidor.DataBind();
-                }
-                //dgvArticulos.DataSource = listaFiltrada;
-                //Session.Add("filtro", ListaFiltrada);
-                //Session.Add("search", txtFiltro.Text);
-                //dgvArticulos.DataBind();
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                    filtrarTexto(txtFiltro.Text);
             }
-
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
         }
+
+        public void filtrarTexto(string filtro)
+        {
+            try
+            {
+                if (Session["search"] != null)
+                {
+                    if (checkFiltroAvanzado.Checked)
+                    {
+                    
+                    
+                        ProductoService service = new ProductoService();
+                        ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
+                    
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                        return;
+                    }
+                }
+
+
+                if (validarFiltro())
+                {
+                    if (!checkFiltroAvanzado.Checked)
+                    {
+                        ProductoService service = new ProductoService();
+                        ListaProducto = service.toList();
+                        FavoritoService favService = new FavoritoService();
+                        ListaFavoritos = favService.toList(((Usuario)Session["user"]).Id);
+                        ListaFiltrada = ListaProducto.Where(p => ListaFavoritos.Contains(p.Id)).ToList();
+                        //repetidor
+                        repRepetidor.DataSource = ListaFiltrada;
+                        ListaFiltrada = ListaFiltrada.FindAll(x => x.Nombre.ToUpper().Contains(txtFiltro.Text.ToUpper()));
+                        repRepetidor.DataSource = ListaFiltrada;
+                        repRepetidor.DataBind();
+                    }
+                    else
+                    {
+                        ProductoService service = new ProductoService();
+                        ListaFiltrada = service.filtrar(ddlCampo.SelectedItem.ToString(), ddlCriterio.SelectedItem.ToString(), txtFiltro.Text, ddlImagen.SelectedItem.ToString());
+                        repRepetidor.DataSource = ListaFiltrada;
+                        repRepetidor.DataBind();
+                    }
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "focusScript", "setFocusOnFilter();", true);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
+            }
+        }
+
         private bool validarFiltro()
         {
             if (checkFiltroAvanzado.Checked)
@@ -199,42 +188,44 @@ namespace articulos_web
 
         protected void AlternarFavorito_Click(object sender, ImageClickEventArgs e)
         {
-            if (Session["user"] != null)
+            try
             {
-                ImageButton imgBtn = (ImageButton)sender;
-                int productId = int.Parse(imgBtn.CommandArgument);
-
-                FavoritoService favservice = new FavoritoService();
-
-                if (!isFav(productId))
+                if (Session["user"] != null)
                 {
-                    favservice.addFavorite(((Usuario)Session["user"]).Id, productId);
-                    Session.Remove("favs");
-                    Session.Add("favs", favservice.toList(((Usuario)Session["user"]).Id));
-                    //repetidor
-                    filtrarTexto(txtFiltro.Text);
-                    repRepetidor.DataSource = ListaFiltrada;
-                    repRepetidor.DataBind();
-
+                    ImageButton imgBtn = (ImageButton)sender;
+                    int productId = int.Parse(imgBtn.CommandArgument);
+                    FavoritoService favservice = new FavoritoService();
+                    if (!isFav(productId))
+                    {
+                        favservice.addFavorite(((Usuario)Session["user"]).Id, productId);
+                        Session.Remove("favs");
+                        Session.Add("favs", favservice.toList(((Usuario)Session["user"]).Id));
+                        //repetidor
+                        filtrarTexto(txtFiltro.Text);
+                        repRepetidor.DataSource = ListaFiltrada;
+                        repRepetidor.DataBind();
+                    }
+                    else
+                    {
+                        favservice.removeFavorite(((Usuario)Session["user"]).Id, productId);
+                        Session.Remove("favs");
+                        Session.Add("favs", favservice.toList(((Usuario)Session["user"]).Id));
+                        //repetidor
+                        filtrarTexto(txtFiltro.Text);
+                        repRepetidor.DataSource = ListaFiltrada;
+                        repRepetidor.DataBind();
+                    }
                 }
                 else
                 {
-                    favservice.removeFavorite(((Usuario)Session["user"]).Id, productId);
-
-                    Session.Remove("favs");
-                    Session.Add("favs", favservice.toList(((Usuario)Session["user"]).Id));
-                    //repetidor
-                    filtrarTexto(txtFiltro.Text);
-                    repRepetidor.DataSource = ListaFiltrada;
-                    repRepetidor.DataBind();
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Debes iniciar sesion para agregar productos a favoritos.');", true);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", "alert('Debes iniciar sesion para agregar productos a favoritos.');", true);
+                Session.Add("error", ex);
+                Response.Redirect("Error.aspx", false);
             }
         }
-
-
     }
 }

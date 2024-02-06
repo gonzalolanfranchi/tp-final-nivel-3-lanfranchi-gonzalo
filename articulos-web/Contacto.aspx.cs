@@ -34,8 +34,7 @@ namespace articulos_web
             catch (Exception ex)
             {
                 Session.Add("error", ex);
-                throw ex;
-                //Response.Redirect("Error.aspx", false);
+                Response.Redirect("Error.aspx", false);
             }
         }
     }

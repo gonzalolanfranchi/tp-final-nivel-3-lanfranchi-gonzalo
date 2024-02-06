@@ -22,7 +22,7 @@ namespace articulos_web
                 }
             }
 
-            if (Page is PaginaAdmin || Page is ListaArticulos)
+            if (Page is ListaArticulos)
             {
                 if (!Security.esAdmin(Session["user"]))
                 {

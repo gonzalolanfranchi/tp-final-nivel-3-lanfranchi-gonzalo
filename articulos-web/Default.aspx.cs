@@ -11,7 +11,7 @@ namespace articulos_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Response.Redirect("CartasDeArticulos.aspx", false);
         }
 
         protected void IrALosProductos_Click(object sender, EventArgs e)

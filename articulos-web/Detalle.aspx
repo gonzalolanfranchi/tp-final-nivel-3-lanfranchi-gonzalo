@@ -30,6 +30,7 @@
                     <div class="col-6">
                         <label class="d-block form-label fw-semibold" for="txtNombre">Nombre:</label>
                         <asp:TextBox runat="server" ID="txtNombre" CssClass="form-control" />
+                        <asp:RequiredFieldValidator ErrorMessage="El nombre es requerido." ControlToValidate="txtNombre" runat="server" CssClass="text text-danger"/>
                     </div>
                 </div>
 
@@ -42,21 +43,14 @@
                 </div>
 
                 <div class="row pb-3 pt-2">
-                    <div class="col-4">
+                    <div class="col-6">
                         <label class="form-label d-block fw-semibold" for="ddlMarca">Marca:</label>
                         <asp:DropDownList ID="ddlMarca" runat="server" CssClass="form-select"></asp:DropDownList>
                     </div>
-                    <div class="col-2">
-                        <label class="form-label d-block fw-semibold" for="btnAgregarMarca">Nueva:</label>
-                        <asp:Button Text="+" runat="server" ID="btnAgregarMarca" CssClass="btn btn-outline-success w-75" />
-                    </div>
-                    <div class="col-4">
+                    
+                    <div class="col-6">
                         <label class="form-label d-block fw-semibold" for="ddlCategoria">Categoria:</label>
                         <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select"></asp:DropDownList>
-                    </div>
-                    <div class="col-2">
-                        <label class="form-label d-block fw-semibold" for="btnAgregarCategoria">Nueva:</label>
-                        <asp:Button Text="+" runat="server" ID="btnAgregarCategoria" CssClass="btn btn-outline-success w-75" />
                     </div>
                 </div>
 
@@ -126,6 +120,7 @@
                     <asp:Button ID="BtnAceptarr" runat="server" Text="Buscar" OnClick="btnAceptar_Click" Visible="false" />
                     <label class="form-label d-block fs-2 fw-semibold pt-1 text-end mt-2" for="txtPrecio">Precio por unidad</label>
                     <asp:TextBox runat="server" ID="txtPrecio" CssClass="form-control fs-1 fw-bold d-flex text-end text-success" />
+                    <asp:RequiredFieldValidator ErrorMessage="El precio es requerido." ControlToValidate="txtPrecio" runat="server" CssClass="text text-danger" />
                 </asp:Panel>
             </div>
 

@@ -28,6 +28,11 @@ namespace articulos_web
             {
                 if (Request.QueryString["id"] == "" || Request.QueryString["id"] == null)
                 {
+                    if (Session["user"] == null || ((Usuario)Session["user"]).Admin != TipoUsuario.ADMIN)
+                    {
+                        Response.Redirect("CartasDeArticulos.aspx", false);
+                        return;
+                    }
                     Session.Add("modificar", true);
                 }
                 //Me guardo la pagina previa
@@ -129,25 +134,46 @@ namespace articulos_web
             {
                 Producto prod = new Producto();
                 ProductoService service = new ProductoService();
-                prod.Codigo = txtCodigo.Text;
+                if (txtCodigo.Text == "")
+                    prod.Codigo = "";
+                else
+                    prod.Codigo = txtCodigo.Text;
+
                 prod.Nombre = txtNombre.Text;
-                prod.Descripcion = txtDescripcion.Text;
-                prod.ImagenUrl = txtImagenUrl.Text;
+
+                if (txtDescripcion.Text == "")
+                    prod.Descripcion = "";
+                else
+                    prod.Descripcion = txtDescripcion.Text;
+                if (txtImagenUrl.Text == "")
+                    prod.ImagenUrl = "";
+                else
+                    prod.ImagenUrl = txtImagenUrl.Text;
+
                 prod.Marca = new Marca();
                 prod.Marca.Id = int.Parse(ddlMarca.SelectedValue);
                 prod.Categoria = new Categoria();
                 prod.Categoria.Id = int.Parse(ddlCategoria.SelectedValue);
+
                 string precio = txtPrecio.Text;
                 prod.Precio = decimal.Parse(formatPrice(precio));
                 if (Request.QueryString["id"] != null)
                 {
                     prod.Id = int.Parse(Request.QueryString["id"]);
                     service.modificar(prod);
+                    Response.Redirect("Detalle.aspx?id=" + prod.Id);
                 }
                 else
-                    service.agregar(prod);
+                {
+                    if (service.existeCodigo(prod.Codigo))
+                    {
+                        MostrarAlertaDesdeServer("Ya existe un producto con ese codigo.");
+                        return;
+                    }
+                    int id = service.agregar(prod);
+                    Response.Redirect("Detalle.aspx?id=" + id, false);
+                }
                 //Response.Redirect("ListaArticulos.aspx" + "?search=" + (Session["search"] != null ? Session["search"].ToString() : ""), false);
-                Response.Redirect("Detalle.aspx?id=" + prod.Id);
             }
             catch (Exception ex)
             {
@@ -169,6 +195,13 @@ namespace articulos_web
             else
                 precio = precio.Replace(".", ",").Replace("$", "").Trim();
             return precio;
+        }
+
+        private void MostrarAlertaDesdeServer(string mensaje)
+        {
+            // Usa el ScriptManager para registrar el script en el lado del servidor.
+            string script = $"alert('{mensaje}');";
+            ScriptManager.RegisterStartupScript(this, GetType(), "ServerAlertScript", script, true);
         }
     }
 }

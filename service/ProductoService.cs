@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +41,18 @@ namespace service
                     aux.Categoria.Id = (int)data.Reader["IdCategoria"];
                     aux.Categoria.Descripcion = (string)data.Reader["Categoria"];
                     aux.ImagenUrl = (string)data.Reader["ImagenUrl"];
+                    if (!string.IsNullOrEmpty(aux.ImagenUrl) && Uri.TryCreate(aux.ImagenUrl, UriKind.Absolute, out Uri uriResult) &&
+                        (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                    {
+                        if (!ImageIsValid(uriResult))
+                        {
+                            aux.ImagenUrl = "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
+                        }
+                    }
+                    else
+                    {
+                        aux.ImagenUrl = "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
+                    }
                     aux.Precio = (decimal)data.Reader["Precio"];
 
                     list.Add(aux);
@@ -52,6 +66,27 @@ namespace service
             finally
             {
                 data.closeConnection();
+            }
+        }
+
+        public bool existeCodigo(string codigo)
+        {
+            try
+            {
+                DataAccess data = new DataAccess();
+                
+                data.setQuery("Select * FROM ARTICULOS Where Codigo = '" + codigo + "'");
+                data.executeRead();
+                if (data.Reader.Read())
+                    return true;
+                else 
+                    return false;
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 
@@ -97,6 +132,18 @@ namespace service
                     aux.Categoria.Id = (int)data.Reader["IdCategoria"];
                     aux.Categoria.Descripcion = (string)data.Reader["Categoria"];
                     aux.ImagenUrl = (string)data.Reader["ImagenUrl"];
+                    if (!string.IsNullOrEmpty(aux.ImagenUrl) && Uri.TryCreate(aux.ImagenUrl, UriKind.Absolute, out Uri uriResult) &&
+                        (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                    {
+                        if (!ImageIsValid(uriResult))
+                        {
+                            aux.ImagenUrl = "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
+                        }
+                    }
+                    else
+                    {
+                        aux.ImagenUrl = "https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg";
+                    }
                     aux.Precio = (decimal)data.Reader["Precio"];
                     list.Add(aux);
                 }
@@ -131,12 +178,12 @@ namespace service
             }
         }
 
-        public void agregar(Producto nuevo)
+        public int agregar(Producto nuevo)
         {
             DataAccess datos = new DataAccess();
             try
             {
-                datos.setQuery("insert into ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) values (@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @imagenUrl, @precio)");
+                datos.setQuery("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, IdMarca, IdCategoria, ImagenUrl, Precio) OUTPUT inserted.Id VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria, @imagenUrl, @precio)");
                 datos.setParameter("@codigo", nuevo.Codigo);
                 datos.setParameter("@nombre", nuevo.Nombre);
                 datos.setParameter("@descripcion", nuevo.Descripcion);
@@ -144,7 +191,7 @@ namespace service
                 datos.setParameter("@idCategoria", nuevo.Categoria.Id);
                 datos.setParameter("@imagenUrl", nuevo.ImagenUrl);
                 datos.setParameter("@precio", nuevo.Precio);
-                datos.executeAction();
+                return datos.executeActionScalar();
             }
             catch (Exception ex)
             {
@@ -342,5 +389,38 @@ namespace service
                 data.closeConnection();
             }
         }
+
+
+        // Función para verificar si la imagen existe
+        private bool ImageIsValid(Uri uri)
+        {
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    // Configurar el agente de usuario
+                    httpClient.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "Mozilla/5.0");
+
+                    using (HttpResponseMessage response = httpClient.GetAsync(uri).Result)
+                    {
+                        response.EnsureSuccessStatusCode();
+
+                        if (response.Content.Headers.ContentType != null && response.Content.Headers.ContentType.MediaType.StartsWith("image"))
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (HttpRequestException)
+            {
+                return false;
+            }
+        }
+
     }
 }

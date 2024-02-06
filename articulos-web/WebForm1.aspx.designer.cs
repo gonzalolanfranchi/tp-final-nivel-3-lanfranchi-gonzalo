@@ -11,7 +11,7 @@ namespace articulos_web
 {
 
 
-    public partial class PaginaNormal
+    public partial class WebForm1
     {
     }
 }

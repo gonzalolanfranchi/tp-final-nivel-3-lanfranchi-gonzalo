@@ -32,11 +32,15 @@
         </div>
         <div class="col-4">
             <div class="form-floating mb-3">
-                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control" type="email" placeholder="name@example.com"/>
+                <asp:TextBox runat="server" ID="txtEmail" CssClass="form-control d-flex" type="email" placeholder="name@example.com"/>
                 <label for="floatingInput">Email address</label>
+                <div class="d-flex">
+                    <asp:RegularExpressionValidator CssClass="text text-danger d-flex" ErrorMessage="Tiene que tener formato de email." ValidationExpression="^([\w-]+(\.[\w-]+)*)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$" ControlToValidate="txtEmail" runat="server" />
+                </div>
             </div>
             <div class="form-floating mb-3">
                 <asp:TextBox type="password" class="form-control" ID="txtPassword" placeholder="Password" runat="server"/>
+                <asp:RequiredFieldValidator ErrorMessage="La contraseña es requerida." ControlToValidate="txtPassword" runat="server" CssClass="text text-danger"/>
                 <label for="floatingPassword">Password</label>
             </div>
 

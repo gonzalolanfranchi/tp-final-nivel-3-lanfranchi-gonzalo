@@ -17,15 +17,13 @@ namespace articulos_web
         {
             if (Session["user"] != null)
             {
-                Response.Redirect("MenuLogin.aspx");
+                Response.Redirect("Perfil.aspx");
             }
-
             if (Session["error"] != null)
             {
                 txtMensaje.Text = Session["error"].ToString();
                 Session.Remove("error");
             }
-
             if (!IsPostBack)
             {
                 if (Request.QueryString["cc"] != null && Request.QueryString["cc"] == "y")
@@ -39,8 +37,6 @@ namespace articulos_web
                 }
                 establecerBotones();
             }
-            
-
         }
 
         public bool quiereCrearCuenta()
@@ -92,23 +88,39 @@ namespace articulos_web
             UserService service = new UserService();
             try
             {
+                if (Validation.textBoxVacio(txtEmail) || Validation.textBoxVacio(txtPassword))
+                {
+                    txtMensaje.Text = "Debes completar todos los campos.";
+                    return;
+                }
                 user = new Usuario(txtEmail.Text, txtPassword.Text, false);
+
+
+
+
                 if (quiereCrearCuenta())
                 {
                     // CREAR CUENTA
                     try
                     {
+                        UserService userService = new UserService();
+
+                        if (userService.comprobarSiExiste(txtEmail.Text))
+                        {
+                            txtMensaje.Text = "Ya existe un usuario con ese email.";
+                            return;
+                        }
+
+
+
                         user.Nombre = txtNombre.Text;
                         user.Apellido = txtApellido.Text;
                         user.Id = service.CrearCuenta(user);
                         Session.Add("user", user);
-
-
                         EmailService emailService = new EmailService();
                         emailService.armarCorreoNuevaCuenta(user.Email, user.Pass);
                         emailService.enviarEmail();
-
-                        Response.Redirect("MenuLogin.aspx", false);
+                        Response.Redirect("Perfil.aspx", false);
 
                     }
                     catch (Exception ex)
@@ -129,14 +141,10 @@ namespace articulos_web
                             //CARGAR FAVORITOS A LA SESION
                             FavoritoService favservice = new FavoritoService();
                             Session.Add("favs", favservice.toList(user.Id));
-
-
-                            Response.Redirect("Default.aspx", false);  
+                            Response.Redirect("Perfil.aspx", false);  
                         }else
                         {
                             txtMensaje.Text = "Email o Contraseña incorrectos.";
-                            //Session.Add("error", "Email o Password incorrectos.");
-                            //Response.Redirect("Error.aspx", false);
                         }
                     }
                     catch (Exception ex)
@@ -150,7 +158,6 @@ namespace articulos_web
             {
                 Session.Add("error", ex.ToString());
                 Response.Redirect("Error.aspx", false);
-
             }
         }
     }

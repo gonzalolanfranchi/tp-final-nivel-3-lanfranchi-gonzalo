@@ -22,8 +22,6 @@ namespace articulos_web
                     txtPassword.Text = user.Pass;
                     txtNombre.Text = user.Nombre;
                     txtApellido.Text = user.Apellido;
-                    //txtPerfilUrl. = user.UrlImagenPerfil;
-
                     if (user.UrlImagenPerfil != "")
                     {
                         imgPerfilMuestra.ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
@@ -62,36 +60,22 @@ namespace articulos_web
                     Usuario user = (Usuario)Session["user"];
                     EmailService email = new EmailService();
                     UserService userService = new UserService();
-
-
                     string ruta = Server.MapPath("./Images/Perfil/");
-
                     if (txtPerfilUrl.PostedFile.FileName != "") 
                     {
                         txtPerfilUrl.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
                         user.UrlImagenPerfil = "perfil-" + user.Id + ".jpg";
                     }
-
                     user.Nombre = txtNombre.Text;
                     user.Apellido = txtApellido.Text;
-
                     string emailViejo = user.Email;
                     user.Email = txtEmail.Text;
-
                     if (Session["cambiarContraseña"] != null && (bool)Session["cambiarContraseña"])
                         user.Pass = txtPassword2.Text;
-
                     userService.modificarUsuario(user);
-
                     email.armarCorreoModificarCuenta(emailViejo, user.Email);
                     email.enviarEmail();
-
                     lblErrores.Text = "Modificado Exitosamente!";
-
-
-
-                    //imgPerfilMuestra.ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
-                    //((Image)Master.FindControl("imgPerfil")).ImageUrl = "~/Images/Perfil/" + user.UrlImagenPerfil;
                 }
             }
             catch (Exception ex)
@@ -112,7 +96,6 @@ namespace articulos_web
                     return false;
                 }
             }
-
             return true;
         }
     }

@@ -8,7 +8,6 @@
     </h1>
     <asp:ScriptManager runat="server" />
     <asp:UpdatePanel runat="server">
-        
         <ContentTemplate>
             <div class="container">
                 <div class="row ">
@@ -68,7 +67,7 @@
                     <asp:Repeater runat="server" ID="repRepetidor">
                         <ItemTemplate>
                             <div class="col mt-3">
-                                <div class="card h-100">
+                                <div class="card" >
                                     <img src="<%#Eval("ImagenUrl")%>" class="card-img-top" alt="..." style="object-fit: contain; max-height: 300px">
                                     <div class="card-body">
                                         <h5 class="card-title"><%#Eval("Nombre") %></h5>

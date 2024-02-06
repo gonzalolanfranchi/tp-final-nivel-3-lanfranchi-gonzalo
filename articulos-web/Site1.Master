@@ -21,7 +21,7 @@
         <header>
             <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Articulos Web</a>
+                    <a class="navbar-brand" href="#">Tu tienda de articulos</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -86,7 +86,7 @@
 
                             <div class="dropdown-menu me-2">
                                 <a class="dropdown-item" href="Perfil.aspx">Mi Perfil</a>
-                                <a class="dropdown-item" href="MenuLogin.aspx">Menu</a>
+                                <a class="dropdown-item" href="Favoritos.aspx">Mis Favoritos</a>
                                 <hr class="dropdown-divider">
                                 <asp:LinkButton Text="Cerrar Sesion" runat="server" ID="LinkButton1" CssClass="dropdown-item" OnClick="btnCerrarSesion_Click" />
                             </div>
