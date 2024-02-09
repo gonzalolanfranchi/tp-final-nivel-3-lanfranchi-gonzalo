@@ -13,7 +13,7 @@ namespace articulos_web
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!(Page is Login || Page is Default || Page is Detalle || Page is Contacto || Page is CartasDeArticulos || Page is Error))
+            if (!(Page is Login || Page is Detalle || Page is Contacto || Page is CartasDeArticulos || Page is Error))
             {
                 if (!Security.sesionActiva(Session["user"]))
                 {
