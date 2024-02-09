@@ -1,0 +1,6 @@
+Z:\Curso C# Nivel 3\articulos-web\domain\bin\Release\domain.dll
+Z:\Curso C# Nivel 3\articulos-web\domain\bin\Release\domain.pdb
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Release\domain.csproj.AssemblyReference.cache
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Release\domain.csproj.CoreCompileInputs.cache
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Release\domain.dll
+Z:\Curso C# Nivel 3\articulos-web\domain\obj\Release\domain.pdb
