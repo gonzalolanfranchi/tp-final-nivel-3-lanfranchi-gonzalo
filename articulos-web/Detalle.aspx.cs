@@ -30,7 +30,7 @@ namespace articulos_web
                 {
                     if (Session["user"] == null || ((Usuario)Session["user"]).Admin != TipoUsuario.ADMIN)
                     {
-                        Response.Redirect("CartasDeArticulos.aspx", false);
+                        Response.Redirect("Default.aspx", false);
                         return;
                     }
                     Session.Add("modificar", true);
@@ -124,7 +124,7 @@ namespace articulos_web
                 if (Session["user"] != null && ((domain.Usuario)Session["user"]).Admin == domain.TipoUsuario.ADMIN)
                     Response.Redirect("ListaArticulos.aspx");
                 else
-                    Response.Redirect("CartasDeArticulos.aspx");
+                    Response.Redirect("Default.aspx");
             }
         }
 

@@ -61,13 +61,36 @@ namespace articulos_web
                     EmailService email = new EmailService();
                     UserService userService = new UserService();
                     string ruta = Server.MapPath("./Images/Perfil/");
+
                     if (txtPerfilUrl.PostedFile.FileName != "") 
                     {
                         txtPerfilUrl.PostedFile.SaveAs(ruta + "perfil-" + user.Id + ".jpg");
                         user.UrlImagenPerfil = "perfil-" + user.Id + ".jpg";
                     }
-                    user.Nombre = txtNombre.Text;
-                    user.Apellido = txtApellido.Text;
+                    else
+                    {
+                        user.UrlImagenPerfil = "";
+                    }
+
+                    if (txtNombre.Text != "")
+                    {
+                        user.Nombre = txtNombre.Text;
+                    }
+                    else
+                    {
+                        user.Nombre = "";
+                    }
+
+                    if (txtApellido.Text != "")
+                    {
+                        user.Apellido = txtApellido.Text;
+                    }
+                    else
+                    {
+                        user.Apellido = "";
+                    }
+
+
                     string emailViejo = user.Email;
                     user.Email = txtEmail.Text;
                     if (Session["cambiarContraseña"] != null && (bool)Session["cambiarContraseña"])
@@ -76,6 +99,10 @@ namespace articulos_web
                     email.armarCorreoModificarCuenta(emailViejo, user.Email);
                     email.enviarEmail();
                     lblErrores.Text = "Modificado Exitosamente!";
+                }
+                else
+                {
+                    
                 }
             }
             catch (Exception ex)
@@ -96,6 +123,13 @@ namespace articulos_web
                     return false;
                 }
             }
+
+            if (txtEmail.Text == "")
+            {
+                lblErrores.Text = "El email no puede estar vacio";
+                return false;
+            }
+
             return true;
         }
     }

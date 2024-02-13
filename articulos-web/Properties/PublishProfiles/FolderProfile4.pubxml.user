@@ -5,15 +5,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\Gonza\Desktop\TPFinalNivel3LanfranchiGonzalo</_PublishTargetUrl>
-    <History>True|2024-02-09T21:13:50.9093115Z;True|2024-02-09T14:43:07.9105245-03:00;True|2024-02-09T11:14:47.2263266-03:00;</History>
+    <History>True|2024-02-13T01:20:17.5935572Z;True|2024-02-09T18:33:01.7339549-03:00;True|2024-02-09T18:13:50.9093115-03:00;True|2024-02-09T14:43:07.9105245-03:00;True|2024-02-09T11:14:47.2263266-03:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/articulos-web.dll">
-      <publishTime>02/09/2024 14:43:07</publishTime>
+      <publishTime>02/12/2024 22:20:16</publishTime>
     </File>
     <File Include="bin/articulos-web.pdb">
-      <publishTime>02/09/2024 14:43:07</publishTime>
+      <publishTime>02/12/2024 22:20:16</publishTime>
     </File>
     <File Include="bin/domain.dll">
       <publishTime>02/06/2024 20:01:08</publishTime>
@@ -172,10 +172,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/08/2018 12:18:16</publishTime>
     </File>
     <File Include="bin/service.dll">
-      <publishTime>02/09/2024 11:14:09</publishTime>
+      <publishTime>02/12/2024 22:20:15</publishTime>
     </File>
     <File Include="bin/service.pdb">
-      <publishTime>02/09/2024 11:14:09</publishTime>
+      <publishTime>02/12/2024 22:20:15</publishTime>
     </File>
     <File Include="CartasDeArticulos.aspx">
       <publishTime>01/03/2024 17:51:54</publishTime>
@@ -184,7 +184,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>12/27/2023 19:44:58</publishTime>
     </File>
     <File Include="Default.aspx">
-      <publishTime>06/14/2023 18:12:21</publishTime>
+      <publishTime>02/09/2024 18:32:15</publishTime>
     </File>
     <File Include="Detalle.aspx">
       <publishTime>01/14/2024 17:57:01</publishTime>
@@ -217,7 +217,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>10/03/2023 23:05:58</publishTime>
     </File>
     <File Include="Site1.Master">
-      <publishTime>01/14/2024 17:40:29</publishTime>
+      <publishTime>02/09/2024 18:32:15</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>02/09/2024 11:14:43</publishTime>
