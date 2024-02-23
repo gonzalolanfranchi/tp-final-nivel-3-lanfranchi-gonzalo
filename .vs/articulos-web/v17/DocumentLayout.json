@@ -1,0 +1,117 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "Z:\\Curso C# Nivel 3\\articulos-web\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|z:\\curso c# nivel 3\\articulos-web\\articulos-web\\detalle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|solutionrelative:articulos-web\\detalle.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\detalle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|solutionrelative:articulos-web\\detalle.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|z:\\curso c# nivel 3\\articulos-web\\articulos-web\\error.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|solutionrelative:articulos-web\\error.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|z:\\curso c# nivel 3\\articulos-web\\articulos-web\\error.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{6A5C1C03-7031-4D6B-B286-C1A9ACDF2C68}|articulos-web\\articulos-web.csproj|solutionrelative:articulos-web\\error.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B0C80A6-9D78-48D4-A62B-AA1C4E0C1FA9}|service\\service.csproj|Z:\\Curso C# Nivel 3\\articulos-web\\service\\productoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B0C80A6-9D78-48D4-A62B-AA1C4E0C1FA9}|service\\service.csproj|solutionrelative:service\\productoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Error.aspx.cs",
+              "DocumentMoniker": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Error.aspx.cs",
+              "RelativeDocumentMoniker": "articulos-web\\Error.aspx.cs",
+              "ToolTip": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Error.aspx.cs",
+              "RelativeToolTip": "articulos-web\\Error.aspx.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T23:43:33.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Error.aspx",
+              "DocumentMoniker": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Error.aspx",
+              "RelativeDocumentMoniker": "articulos-web\\Error.aspx",
+              "ToolTip": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Error.aspx",
+              "RelativeToolTip": "articulos-web\\Error.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-02-22T23:43:21.432Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Detalle.aspx.cs",
+              "DocumentMoniker": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Detalle.aspx.cs",
+              "RelativeDocumentMoniker": "articulos-web\\Detalle.aspx.cs",
+              "ToolTip": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Detalle.aspx.cs",
+              "RelativeToolTip": "articulos-web\\Detalle.aspx.cs",
+              "ViewState": "AQIAAMEAAAAAAAAAAAAowNIAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-22T23:22:08.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Detalle.aspx",
+              "DocumentMoniker": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Detalle.aspx",
+              "RelativeDocumentMoniker": "articulos-web\\Detalle.aspx",
+              "ToolTip": "Z:\\Curso C# Nivel 3\\articulos-web\\articulos-web\\Detalle.aspx",
+              "RelativeToolTip": "articulos-web\\Detalle.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2024-02-17T05:03:47.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProductoService.cs",
+              "DocumentMoniker": "Z:\\Curso C# Nivel 3\\articulos-web\\service\\ProductoService.cs",
+              "RelativeDocumentMoniker": "service\\ProductoService.cs",
+              "ToolTip": "Z:\\Curso C# Nivel 3\\articulos-web\\service\\ProductoService.cs",
+              "RelativeToolTip": "service\\ProductoService.cs",
+              "ViewState": "AQIAAJgAAAAAAAAAAAAowKcAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-17T03:36:54.641Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

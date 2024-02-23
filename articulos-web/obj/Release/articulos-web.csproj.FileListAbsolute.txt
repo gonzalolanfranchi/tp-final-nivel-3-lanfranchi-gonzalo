@@ -58,6 +58,6 @@ Z:\Curso C# Nivel 3\articulos-web\articulos-web\bin\service.pdb
 Z:\Curso C# Nivel 3\articulos-web\articulos-web\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulos-web.csproj.AssemblyReference.cache
 Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulos-web.csproj.CoreCompileInputs.cache
-Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulos-web.csproj.CopyComplete
 Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulos-web.dll
 Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulos-web.pdb
+Z:\Curso C# Nivel 3\articulos-web\articulos-web\obj\Release\articulo.FB64694B.Up2Date

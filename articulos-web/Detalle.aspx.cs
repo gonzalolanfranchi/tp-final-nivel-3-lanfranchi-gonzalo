@@ -203,5 +203,21 @@ namespace articulos_web
             string script = $"alert('{mensaje}');";
             ScriptManager.RegisterStartupScript(this, GetType(), "ServerAlertScript", script, true);
         }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ProductoService service = new ProductoService();
+                service.eliminar(int.Parse(Request.QueryString["id"]));
+                Response.Redirect("Default.aspx", false);
+                MostrarAlertaDesdeServer("Producto eliminado correctamente.");
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                Response.Redirect("Error.aspx", false);
+            }
+        }
     }
 }
